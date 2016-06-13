@@ -82,6 +82,7 @@
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -93,7 +94,11 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="Sphere.h" />
+<<<<<<< HEAD
     <ClInclude Include="Vector.h" />
+=======
+    <ClInclude Include="Vec3.h" />
+>>>>>>> d1121fe9d0576be0047e2d64678cc3c65d9247c3
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

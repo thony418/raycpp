@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Utils">
+      <UniqueIdentifier>{2a9995d6-bc6c-4189-a144-2f0d3544450b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Utils">
+      <UniqueIdentifier>{4e7dcf1f-c182-4242-93d6-45cf8b7e8897}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -30,8 +36,13 @@
     <ClCompile Include="Sphere.cpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Position.cpp">
       <Filter>Fichiers d%27en-tête</Filter>
+=======
+    <ClCompile Include="Vec3.cpp">
+      <Filter>Fichiers sources\Utils</Filter>
+>>>>>>> d1121fe9d0576be0047e2d64678cc3c65d9247c3
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,8 +73,13 @@
     <ClInclude Include="Sphere.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Vector.h">
       <Filter>Fichiers d%27en-tête</Filter>
+=======
+    <ClInclude Include="Vec3.h">
+      <Filter>Fichiers d%27en-tête\Utils</Filter>
+>>>>>>> d1121fe9d0576be0047e2d64678cc3c65d9247c3
     </ClInclude>
   </ItemGroup>
 </Project>
