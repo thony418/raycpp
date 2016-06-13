@@ -3,6 +3,7 @@
 #include "Material.h"
 
 class SceneObject{
+	Position getPosition(){ return position; }
 private:
 	Position position;
 	Material material;
