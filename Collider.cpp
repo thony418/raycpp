@@ -6,7 +6,7 @@ Position collide(Ray &ray, Scene &scene){
 	// get the origin of the ray
 	Position ray_origin = ray.getOrigin();
 	// declare the best scene object;
-	SceneObject* best_sceneObeject = nullptr;
+	SceneObject* best_sceneObject = nullptr;
 	// declare the best distance
 	float best_dist = 0.0;
 	// declare the current distance
@@ -25,7 +25,7 @@ Position collide(Ray &ray, Scene &scene){
 			// if it's the best
 			if (best_dist > dist){
 				best_dist = dist;
-				best_sceneObeject = *it;
+				best_sceneObject = *it;
 				best_impact_point = pair_intersect.second;
 			}
 		}		
