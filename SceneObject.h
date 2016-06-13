@@ -14,7 +14,7 @@ public:
 	**/
 	pair<bool, Position> intersect(Ray &ray){ return pair<bool, Position>(false, ray.getOrigin()); };
 	Position getPosition(){ return position; };
-private:
+protected:
 	Position position;
 	Material material;
 };
