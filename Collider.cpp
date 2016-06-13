@@ -1,6 +1,6 @@
 #include "Collider.h"
 
-Position collide(Ray &ray, Scene &scene){
+pair<Position, SceneObject*> collide(Ray &ray, Scene &scene){
 	// init the best impact point to the ray position
 	Position best_impact_point = ray.getOrigin();
 	// get the origin of the ray
@@ -30,5 +30,5 @@ Position collide(Ray &ray, Scene &scene){
 			}
 		}		
 	}
-	return best_impact_point;
+	return pair<Position, SceneObject*>(best_impact_point, best_sceneObject);
 }

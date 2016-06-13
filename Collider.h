@@ -4,5 +4,10 @@
 
 class Collider{
 public:
-	Position collide(Ray &ray, Scene &scene); // changer position par pair<Position,SceneObject> ? 
+	/**
+	 * Determine the best scene objet collide
+	 * return : impact point and the best scene object collide
+	 * if not object was collide return ray's origin and nullptr
+	**/
+	pair<Position, SceneObject*> collide(Ray &ray, Scene &scene); 
 };
