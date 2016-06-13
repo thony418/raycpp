@@ -9,5 +9,6 @@ public:
 	 * return : impact point and the best scene object collide
 	 * if not object was collide return ray's origin and nullptr
 	**/
+	pair<Position, SceneObject*> collide(Ray &ray, vector<SceneObject*>* sceneObjects);
 	pair<Position, SceneObject*> collide(Ray &ray, Scene &scene); 
 };
