@@ -2,7 +2,8 @@
 #include "Position.h"
 
 class Ray{
-	Position getPosition(){ return position; };
+public:
+	Position getOrigin(){ return origin; };
 private:
-	Position position;
+	Position origin;
 };

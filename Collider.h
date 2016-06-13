@@ -4,5 +4,5 @@
 
 class Collider{
 public:
-	Position collide(Ray rayon, Scene scene); // changer position par paire position sceneObject ? 
+	Position collide(Ray &ray, Scene &scene); // changer position par pair<Position,SceneObject> ? 
 };
