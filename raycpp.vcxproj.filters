@@ -36,13 +36,11 @@
     <ClCompile Include="Sphere.cpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="Position.cpp">
       <Filter>Fichiers d%27en-tête</Filter>
-=======
+    </ClCompile>
     <ClCompile Include="Vec3.cpp">
       <Filter>Fichiers sources\Utils</Filter>
->>>>>>> d1121fe9d0576be0047e2d64678cc3c65d9247c3
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,13 +71,8 @@
     <ClInclude Include="Sphere.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Vector.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-=======
     <ClInclude Include="Vec3.h">
       <Filter>Fichiers d%27en-tête\Utils</Filter>
->>>>>>> d1121fe9d0576be0047e2d64678cc3c65d9247c3
     </ClInclude>
   </ItemGroup>
 </Project>

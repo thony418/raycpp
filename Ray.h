@@ -1,11 +1,11 @@
 #pragma once
 #include "Position.h"
-#include "Vector.h"
+#include "Vec3.h"
 
 class Ray{
 public:
 	Position getOrigin(){ return origin; };
 private:
 	Position origin;
-	Vector direction;
+	Vec3 direction;
 };
