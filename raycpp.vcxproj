@@ -76,8 +76,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mat3.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -85,8 +87,10 @@
     <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="Mat3.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Ray.h" />

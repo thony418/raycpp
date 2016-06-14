@@ -11,6 +11,7 @@ private:
 public:
 	Vec3();
 	Vec3(const float x, const float y, const float z);
+	Vec3(const Vec3& v);
 
 	/**
 	* Dot or scalar product between this and the otherPosition
@@ -36,3 +37,5 @@ public:
 	inline float getY() const { return y; };
 	inline float getZ() const { return z; };
 };
+
+inline Vec3 operator*(const float k, const Vec3& v) { return v*k; }

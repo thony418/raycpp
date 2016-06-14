@@ -5,6 +5,8 @@ Vec3::Vec3() : Vec3(0.0, 0.0, 0.0) {}
 
 Vec3::Vec3(const float x, const float y, const float z) : x(x), y(y), z(z) {}
 
+Vec3::Vec3(const Vec3& v) : x(v.x), y(v.y), z(v.z) {}
+
 
 float Vec3::scalar_product(Vec3 &other){
 	vector<float> this_vector = { x, y, z };
