@@ -15,7 +15,6 @@ float Vec3::scalar_product(Vec3 &other){
 }
 
 
-
 Vec3 Vec3::operator*(const float a) const { return Vec3(a*x, a*y, a*z); }
 float Vec3::operator*(const Vec3& v) const { return sqrtf(x*v.x + y*v.y + z*v.z); }
 

@@ -3,6 +3,7 @@
 
 class Ray{
 public:
+	Ray(Vec3 pOrigin, Vec3 vDir);
 	Vec3 getOrigin(){ return origin; };
 	Vec3 getDirection(){ return direction; };
 private:

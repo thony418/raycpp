@@ -12,6 +12,8 @@ public:
 	Vec3(const float x, const float y, const float z);
 	Vec3(const Vec3& v);
 
+	float scalar_product(Vec3 &other);
+
 	Vec3 operator*(const float a) const;
 	float operator*(const Vec3& v) const;
 
