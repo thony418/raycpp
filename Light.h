@@ -1,9 +1,9 @@
 #pragma once
-#include "Position.h"
+#include "Vec3.h"
 
 class Light{
 public:
-	Position getPosition(){ return position; };
+	Vec3 getPosition(){ return position; };
 private:
-	Position position;
+	Vec3 position;
 };

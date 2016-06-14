@@ -80,7 +80,6 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mat3.cpp" />
-    <ClCompile Include="Position.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -92,7 +91,6 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="Mat3.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="Position.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RenderWindow.h" />
     <ClInclude Include="Scene.h" />
