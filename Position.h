@@ -36,6 +36,7 @@ public:
 	void setZ(float newZ){ z = newZ; };
 
 	friend Position operator-(Position &p1, Position &p2);
+	friend Position operator-(Position &p1, Position &p2);
 private:
 	float x;
 	float y;
