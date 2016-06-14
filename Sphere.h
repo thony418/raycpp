@@ -3,7 +3,7 @@
 
 class Sphere : public SceneObject{
 public:
-	Sphere(Position p, float radius){
+	Sphere(Vec3 p, float radius){
 		this->position = p;
 		this->radius = radius;
 	}
@@ -16,7 +16,7 @@ public:
 	 * with : o = ray origin, d = ray direction, C = sphere center, R = sphere radius
 	 * base on http://stackoverflow.com/questions/12678225/intersection-problems-with-ray-sphere-intersection
 	**/
-	virtual pair<bool, Position> intersect(Ray &ray);
+	virtual pair<bool, Vec3> intersect(Ray &ray);
 private:
 	float radius;
 };

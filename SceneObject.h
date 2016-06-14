@@ -1,5 +1,4 @@
 #pragma once
-#include "Position.h"
 #include "Material.h"
 #include "Ray.h"
 #include <utility>
@@ -12,9 +11,9 @@ public:
 	 * Determine if the ray have an intersection to the scene object
 	 * return: true and the impact point if intersect, false and origin of the ray if not intersect 
 	**/
-	pair<bool, Position> intersect(Ray &ray){ return pair<bool, Position>(false, ray.getOrigin()); };
-	Position getPosition(){ return position; };
+	pair<bool, Vec3> intersect(Ray &ray){ return pair<bool, Vec3>(false, ray.getOrigin()); };
+	Vec3 getPosition(){ return position; };
 protected:
-	Position position;
+	Vec3 position;
 	Material material;
 };
