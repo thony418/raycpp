@@ -12,6 +12,8 @@ Mat3::Mat3(const float(&data)[3][3]) {
 	this->data[2][2] = data[2][2];
 }
 
+Mat3::Mat3() : Mat3({ { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f } }) {}
+
 Mat3 Mat3::operator*(const Mat3& m) const {
 	float
 		m00 = data[0][0] * m.data[0][0] + data[0][1] * m.data[1][0] + data[0][2] * m.data[2][0],
