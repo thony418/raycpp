@@ -39,13 +39,13 @@ RenderWindow::RenderWindow(HINSTANCE hInstance, int nCmdShow)
 	winRect.left = 0;
 	winRect.right = 1024;
 
-	AdjustWindowRectEx(&winRect, WS_OVERLAPPEDWINDOW ^ WS_MAXIMIZEBOX, false, 0);
+	AdjustWindowRectEx(&winRect, WS_OVERLAPPEDWINDOW ^ (WS_MAXIMIZEBOX | WS_THICKFRAME), false, 0);
 
 	hWindow = CreateWindowEx(
 		0,
 		RenderWindowClassName,
 		L"RayCPP",
-		WS_OVERLAPPEDWINDOW ^ WS_MAXIMIZEBOX,
+		WS_OVERLAPPEDWINDOW ^ (WS_MAXIMIZEBOX | WS_THICKFRAME),
 		CW_USEDEFAULT, CW_USEDEFAULT,
 		winRect.right - winRect.left, winRect.bottom - winRect.top,
 		NULL, NULL, hInstance, NULL);

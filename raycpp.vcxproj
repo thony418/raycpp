@@ -80,6 +80,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mat3.cpp" />
+    <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sphere.cpp" />
