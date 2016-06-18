@@ -16,10 +16,10 @@ public:
 	 * with : o = ray origin, d = ray direction, C = sphere center, R = sphere radius
 	 * base on http://stackoverflow.com/questions/12678225/intersection-problems-with-ray-sphere-intersection
 	**/
-	virtual pair<bool, Vec3> intersect(Ray &ray);
+	pair<bool, Vec3> intersect(Ray &ray);
 
-	virtual Vec3 minCoordinates(){ return position * (- radius); };
-	virtual Vec3 maxCoordinates(){ return position * radius; };
+	Vec3 minCoordinates(){ return position * (- radius); };
+	Vec3 maxCoordinates(){ return position * radius; };
 private:
 	float radius;
 };
