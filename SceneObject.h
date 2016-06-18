@@ -18,6 +18,7 @@ public:
 
 	Vec3 getPosition() const { return position; };
 protected:
+	// Represents the center of the object
 	Vec3 position;
 	Material material;
 };
