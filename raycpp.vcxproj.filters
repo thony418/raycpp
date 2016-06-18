@@ -51,6 +51,9 @@
     <ClCompile Include="BumpMapping.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Planar.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderWindow.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="BumpMapping.h">
       <Filter>Fichiers sources</Filter>
+    </ClInclude>
+    <ClInclude Include="Planar.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
