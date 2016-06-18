@@ -8,6 +8,14 @@ Planar::Planar() {
 	this->n = this->halfHeight^this->halfWidth;	// n = 0, 0, -1 so it will face the camera if it is in the z direction
 }
 
+// Constructor with all the parameters
+Planar::Planar(Vec3 pos, Vec3 w, Vec3 h) {
+	this->position = pos;
+	this->halfWidth = w;
+	this->halfHeight = h;
+	this->n = this->halfHeight^this->halfWidth;
+}
+
 pair<bool, Vec3> Planar::intersect(Ray &ray){
 	// declare the impact point
 	Vec3 impact_point = ray.getOrigin();
@@ -34,6 +42,14 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 		}
 	}
 	return pair<bool, Vec3>(false, impact_point);
+}
+
+Vec3 Planar::minCoordinates() {
+	return Vec3();
+}
+
+Vec3 Planar::maxCoordinates() {
+	return Vec3();
 }
 
 /*
