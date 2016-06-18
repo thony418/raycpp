@@ -21,7 +21,7 @@ private:
 	// Normal vector of the planar
 	Vec3 n;
 	// Half width of the object (beginning at its position)
-	Vec3 halfWidth;
+	Vec3 halfWidth; // x
 	// Half height of the object (beginning at its position)
-	Vec3 halfHeight;
+	Vec3 halfHeight; // y
 };

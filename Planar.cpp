@@ -25,9 +25,14 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 		float t = ((p0-l0) * n) / denom;
 		// calcul the impact point
 		impact_point = l0 + l * t;
-		return pair<bool, Vec3>(t >= 0, impact_point);
+		if (impact_point.getX() < halfWidth.getX() && impact_point.getX() > -halfWidth.getX() 
+			&& impact_point.getY() < halfHeight.getY() && impact_point.getY() > -halfHeight.getY()){
+			return pair<bool, Vec3>(t >= 0, impact_point);
+		}
+		else{
+			return pair<bool, Vec3>(false, impact_point);
+		}
 	}
-
 	return pair<bool, Vec3>(false, impact_point);
 }
 
