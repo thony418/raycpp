@@ -40,11 +40,15 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 */
 Vec3 Planar::computeBump(const Vec3& impact) const {
 	Vec3 res = this->n;
+
 	// TODO : check if the material has a bump map
 
 	Vec3 impactPositionOnObject = impact - this->getPosition();
 
-	// TODO : find the pixel on the map
+	// Normalized x and y, to be multiply with the size of the map
+	float xNorm = 1 + this->halfWidth.unit()*impactPositionOnObject.unit();
+	float yNorm = 1 + this->halfHeight.unit()*impactPositionOnObject.unit();
+	// TODO: use x and y to get the matching point on the bump map
 
 	// TODO : compute the normal with the color found on the map at the impact's coordinates
 
