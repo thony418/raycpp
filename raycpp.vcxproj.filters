@@ -48,9 +48,6 @@
     <ClCompile Include="Ray.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="BumpMapping.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Planar.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -88,9 +85,6 @@
     </ClInclude>
     <ClInclude Include="Mat3.h">
       <Filter>Fichiers d%27en-tête\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="BumpMapping.h">
-      <Filter>Fichiers sources</Filter>
     </ClInclude>
     <ClInclude Include="Planar.h">
       <Filter>Fichiers d%27en-tête</Filter>
