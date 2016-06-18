@@ -46,11 +46,11 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 }
 
 Vec3 Planar::minCoordinates() {
-	return Vec3();
+	return Vec3(-halfWidth.getX(), -halfHeight.getY(), position.getZ());
 }
 
 Vec3 Planar::maxCoordinates() {
-	return Vec3();
+	return Vec3(halfWidth.getX(), halfHeight.getY(), position.getZ());
 }
 
 /*
