@@ -5,6 +5,8 @@ class Planar : public SceneObject{
 public:
 	// Default constructor
 	Planar();
+	// Constructor with all the parameters
+	Planar(Vec3 pos, Vec3 w, Vec3 h);
 
 	/**
 	 * Determine the intersection between a ray and a planar
