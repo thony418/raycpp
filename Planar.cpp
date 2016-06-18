@@ -1,5 +1,13 @@
 #include "Planar.h"
 
+// Will create a planar at 0, 0, 0 with a side of 2
+Planar::Planar() {
+	this->position = Vec3(0, 0, 0);
+	this->halfWidth = Vec3(1, 0, 0);
+	this->halfHeight = Vec3(0, 1, 0);
+	this->n = this->halfHeight^this->halfWidth;	// n = 0, 0, -1 so it will face the camera if it is in the z direction
+}
+
 pair<bool, Vec3> Planar::intersect(Ray &ray){
 	// declare the impact point
 	Vec3 impact_point = ray.getOrigin();

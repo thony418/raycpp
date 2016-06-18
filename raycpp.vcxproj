@@ -95,6 +95,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="Mat3.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Octree.h" />
     <ClInclude Include="Planar.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RenderWindow.h" />

@@ -3,6 +3,9 @@
 
 class Planar : public SceneObject{
 public:
+	// Default constructor
+	Planar();
+
 	/**
 	 * Determine the intersection between a ray and a planar
 	 * Solution Geometric : p = l0 + t * l
@@ -17,4 +20,8 @@ public:
 private:
 	// Normal vector of the planar
 	Vec3 n;
+	// Half width of the object (beginning at its position)
+	Vec3 halfWidth;
+	// Half height of the object (beginning at its position)
+	Vec3 halfHeight;
 };
