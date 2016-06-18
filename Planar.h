@@ -11,6 +11,10 @@ public:
 	 * base on http://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-plane-and-ray-disk-intersection
 	**/
 	virtual pair<bool, Vec3> intersect(Ray &ray);
+
+	// Overridden method to match the planar case
+	Vec3 computeBump(const Vec3& impact) const;
 private:
+	// Normal vector of the planar
 	Vec3 n;
 };
