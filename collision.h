@@ -2,8 +2,6 @@
 #include "Ray.h"
 #include "Scene.h"
 
-class Collider{
-public:
 	/**
 	 * Determine the best scene objet collide
 	 * return : impact point and the best scene object collide
@@ -11,4 +9,3 @@ public:
 	**/
 	pair<Vec3, SceneObject*> collide(Ray &ray, vector<SceneObject*>* sceneObjects);
 	pair<Vec3, SceneObject*> collide(Ray &ray, Scene &scene);
-};

@@ -34,5 +34,5 @@ Ray Camera::getRay(const unsigned int x, const unsigned int y) const {
 	Vec3 v1(distToFrame, dy, dz);
 	Vec3 v2 = R*v1;
 
-	return Ray(pOrigin, v2);
+	return Ray(pOrigin, v2.unit());
 }

@@ -19,7 +19,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -78,11 +78,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BumpMapping.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="collision.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mat3.cpp" />
+    <ClCompile Include="Planar.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -90,12 +90,12 @@
     <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BumpMapping.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Collider.h" />
+    <ClInclude Include="collision.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Mat3.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Planar.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RenderWindow.h" />
     <ClInclude Include="Scene.h" />

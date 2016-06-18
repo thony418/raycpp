@@ -1,6 +1,6 @@
-#include "Collider.h"
+#include "collision.h"
 
-pair<Vec3, SceneObject*> Collider::collide(Ray &ray, vector<SceneObject*>* sceneObjects){
+pair<Vec3, SceneObject*> collide(Ray &ray, vector<SceneObject*>* sceneObjects){
 	// init the best impact point to the ray position
 	Vec3 best_impact_point = ray.getOrigin();
 	// get the origin of the ray
@@ -34,7 +34,7 @@ pair<Vec3, SceneObject*> Collider::collide(Ray &ray, vector<SceneObject*>* scene
 	return pair<Vec3, SceneObject*>(best_impact_point, best_sceneObject);
 }
 
-pair<Vec3, SceneObject*> Collider::collide(Ray &ray, Scene &scene){
+pair<Vec3, SceneObject*> collide(Ray &ray, Scene &scene){
 	// get the vector of scene object of the scene
 	vector<SceneObject*>* sceneObjects = scene.getSceneObjects();
 	return collide(ray, sceneObjects);
