@@ -28,7 +28,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	vector<SceneObject*> objVect;
 	objVect.push_back(new Sphere(Vec3(0.5, 0.0, 5.0), 0.5));
 	objVect.push_back(new Sphere(Vec3(-1.0, 0.5, 7.0), 1.0));
-	objVect.push_back(new Planar(Vec3(0, 0, 10), Vec3(15, 0, 0), Vec3(0, 15, 0)));
+	objVect.push_back(new Planar(Vec3(0, 0, 10), Vec3(1, 0, 0), Vec3(0, 1, 0)));
 
 	
 	thread renderThread(renderingLoop, &mainWindow, &cam, &objVect);

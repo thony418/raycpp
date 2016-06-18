@@ -5,7 +5,7 @@ Planar::Planar() {
 	this->position = Vec3(0, 0, 0);
 	this->halfWidth = Vec3(1, 0, 0);
 	this->halfHeight = Vec3(0, 1, 0);
-	this->n = this->halfHeight^this->halfWidth;	// n = 0, 0, -1 so it will face the camera if it is in the z direction
+	this->n = (this->halfWidth^this->halfHeight).unit();
 }
 
 // Constructor with all the parameters
@@ -13,7 +13,7 @@ Planar::Planar(Vec3 pos, Vec3 w, Vec3 h) {
 	this->position = pos;
 	this->halfWidth = w;
 	this->halfHeight = h;
-	this->n = this->halfHeight^this->halfWidth;
+	this->n = (this->halfWidth^this->halfHeight).unit();
 }
 
 pair<bool, Vec3> Planar::intersect(Ray &ray){
@@ -21,9 +21,9 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 	Vec3 impact_point = ray.getOrigin();
 
 	// normalize the vector (n is already normalize)
-	Vec3 l0 = ray.getOrigin().unit();
+	Vec3 l0 = ray.getOrigin();
 	Vec3 l = ray.getDirection().unit();
-	Vec3 p0 = position.unit();
+	Vec3 p0 = position;
 
 	// calcul the denominator
 	float denom = n * l;
@@ -33,6 +33,7 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 		float t = ((p0-l0) * n) / denom;
 		// calcul the impact point
 		impact_point = l0 + l * t;
+		// verif if the impact poinnt is in the square
 		if (impact_point.getX() < halfWidth.getX() && impact_point.getX() > -halfWidth.getX() 
 			&& impact_point.getY() < halfHeight.getY() && impact_point.getY() > -halfHeight.getY()){
 			return pair<bool, Vec3>(t >= 0, impact_point);
