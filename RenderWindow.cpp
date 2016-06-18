@@ -71,6 +71,8 @@ RenderWindow::RenderWindow(HINSTANCE hInstance, int nCmdShow)
 	winRect.left = 0;
 	winRect.right = 1024;
 
+	AdjustWindowRectEx(&winRect, WS_OVERLAPPEDWINDOW ^ (WS_MAXIMIZEBOX | WS_THICKFRAME), false, 0);
+
 	hWindow = CreateWindowEx(
 		0,
 		RenderWindowClassName,
@@ -86,8 +88,8 @@ RenderWindow::RenderWindow(HINSTANCE hInstance, int nCmdShow)
 		D2D1::HwndRenderTargetProperties(
 			hWindow,
 			D2D1::SizeU(
-				winRect.right - winRect.left,
-				winRect.bottom - winRect.top
+				1024,
+				768
 			)
 		),
 		&d2dRTarget
