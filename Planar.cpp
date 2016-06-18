@@ -44,6 +44,14 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 	return pair<bool, Vec3>(false, impact_point);
 }
 
+Vec3 Planar::minCoordinates() {
+	return Vec3();
+}
+
+Vec3 Planar::maxCoordinates() {
+	return Vec3();
+}
+
 /*
 	Used to compute the normal on the impact point to make the surface "bump"
 	Impact point given in the scene base

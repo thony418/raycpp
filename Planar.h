@@ -15,7 +15,10 @@ public:
 	 * return : false and the ray's origin if no intersection and true and the impact point if intersection
 	 * base on http://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-plane-and-ray-disk-intersection
 	**/
-	virtual pair<bool, Vec3> intersect(Ray &ray);
+	pair<bool, Vec3> intersect(Ray &ray);
+
+	Vec3 minCoordinates();
+	Vec3 maxCoordinates();
 
 	// Overridden method to match the planar case
 	Vec3 computeBump(const Vec3& impact) const;
