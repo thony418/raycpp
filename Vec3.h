@@ -13,6 +13,7 @@ public:
 	Vec3(const Vec3& v);
 
 	Vec3 operator*(const float a) const;
+	Vec3 operator/(const float a) const;
 	float operator*(const Vec3& v) const;
 
 	Vec3 operator+(const Vec3& v) const;
@@ -28,6 +29,9 @@ public:
 	inline float getX() const { return x; };
 	inline float getY() const { return y; };
 	inline float getZ() const { return z; };
+	inline void setX(float newX) { x = newX; };
+	inline void setY(float newY) { y = newY; };
+	inline void setZ(float newZ) { z = newZ; };
 };
 
 inline Vec3 operator*(const float k, const Vec3& v) { return v*k; }

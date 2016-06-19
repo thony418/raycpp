@@ -82,6 +82,7 @@
     <ClCompile Include="collision.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mat3.cpp" />
+    <ClCompile Include="Octree.cpp" />
     <ClCompile Include="Planar.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RenderWindow.cpp" />

@@ -9,6 +9,7 @@ Vec3::Vec3(const Vec3& v) : x(v.x), y(v.y), z(v.z) {}
 
 
 Vec3 Vec3::operator*(const float a) const { return Vec3(a*x, a*y, a*z); }
+Vec3 Vec3::operator/(const float a) const { return Vec3(x/a, y/a, z/a); }
 float Vec3::operator*(const Vec3& v) const { return x*v.x + y*v.y + z*v.z; }
 
 Vec3 Vec3::operator+(const Vec3& v) const { return Vec3(x + v.x, y + v.y, z + v.z); }

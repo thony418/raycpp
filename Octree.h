@@ -14,6 +14,7 @@ public:
 	Node(Vec3 position, int size, Node* parent, vector<SceneObject*>* sceneObjects);
 
 	void addChild(Node* child);
+	void buildTree();
 private:
 	Vec3 position;
 	int size;
