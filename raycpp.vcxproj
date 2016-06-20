@@ -84,6 +84,7 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mat3.cpp" />
+    <ClCompile Include="Octree.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Planar.cpp" />
     <ClCompile Include="Ray.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="Mat3.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Octree.h" />
     <ClInclude Include="Planar.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="RenderWindow.h" />

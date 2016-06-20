@@ -7,5 +7,5 @@
 	 * return : impact point and the best scene object collide
 	 * if not object was collide return ray's origin and nullptr
 	**/
-	pair<Vec3, SceneObject*> collide(Ray &ray, vector<SceneObject*>* sceneObjects);
+	pair<Vec3, SceneObject*> collide(Ray &ray, vector<SceneObject*>& sceneObjects);
 	pair<Vec3, SceneObject*> collide(Ray &ray, Scene &scene);

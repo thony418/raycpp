@@ -5,17 +5,25 @@ Planar::Planar() {
 	this->position = Vec3(0, 0, 0);
 	this->halfWidth = Vec3(1, 0, 0);
 	this->halfHeight = Vec3(0, 1, 0);
-	this->n = this->halfHeight^this->halfWidth;	// n = 0, 0, -1 so it will face the camera if it is in the z direction
+	this->n = (this->halfWidth^this->halfHeight).unit();
+}
+
+// Constructor with all the parameters
+Planar::Planar(Vec3 pos, Vec3 w, Vec3 h) {
+	this->position = pos;
+	this->halfWidth = w;
+	this->halfHeight = h;
+	this->n = (this->halfWidth^this->halfHeight).unit();
 }
 
 pair<bool, Vec3> Planar::intersect(Ray &ray){
 	// declare the impact point
 	Vec3 impact_point = ray.getOrigin();
 
-	// normalize the vector (n is already normalize)
-	Vec3 l0 = ray.getOrigin().unit();
+	// normalize the vector (n is already normalized)
+	Vec3 l0 = ray.getOrigin();
 	Vec3 l = ray.getDirection().unit();
-	Vec3 p0 = position.unit();
+	Vec3 p0 = position;
 
 	// calcul the denominator
 	float denom = n * l;
@@ -25,10 +33,31 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 		float t = ((p0-l0) * n) / denom;
 		// calcul the impact point
 		impact_point = l0 + l * t;
-		return pair<bool, Vec3>(t >= 0, impact_point);
+		// verif if the impact point is in the square
+		if (impact_point.getX() < maxCoordinates().getX() && impact_point.getX() > minCoordinates().getX()
+			&& impact_point.getY() < maxCoordinates().getY() && impact_point.getY() > minCoordinates().getY() 
+			/*&& impact_point.getZ() <= maxCoordinates().getZ() && impact_point.getZ() >= minCoordinates().getZ()*/){
+				return pair<bool, Vec3>(t >= 0, impact_point);
+		}
+		else{
+			return pair<bool, Vec3>(false, impact_point);
+		}
 	}
-
 	return pair<bool, Vec3>(false, impact_point);
+}
+
+Vec3 Planar::minCoordinates() {
+	float x = halfWidth.getX() > halfHeight.getX() ? halfWidth.getX() : halfHeight.getX();
+	float y = halfWidth.getY() > halfHeight.getY() ? halfWidth.getY() : halfHeight.getY();
+	float z = halfWidth.getZ() > halfHeight.getZ() ? halfWidth.getZ() : halfHeight.getZ();
+	return Vec3(position.getX() - x, position.getY() - y, position.getZ() - z);
+}
+
+Vec3 Planar::maxCoordinates() {
+	float x = halfWidth.getX() > halfHeight.getX() ? halfWidth.getX() : halfHeight.getX();
+	float y = halfWidth.getY() > halfHeight.getY() ? halfWidth.getY() : halfHeight.getY();
+	float z = halfWidth.getZ() > halfHeight.getZ() ? halfWidth.getZ() : halfHeight.getZ();
+	return Vec3(position.getX() + x, position.getY() + y, position.getZ() + z);
 }
 
 /*
@@ -40,11 +69,15 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 */
 Vec3 Planar::computeBump(const Vec3& impact) const {
 	Vec3 res = this->n;
+
 	// TODO : check if the material has a bump map
 
 	Vec3 impactPositionOnObject = impact - this->getPosition();
 
-	// TODO : find the pixel on the map
+	// Normalized x and y, to be multiply with the size of the map
+	float xNorm = 1 + this->halfWidth.unit()*impactPositionOnObject.unit();
+	float yNorm = 1 + this->halfHeight.unit()*impactPositionOnObject.unit();
+	// TODO: use x and y to get the matching point on the bump map
 
 	// TODO : compute the normal with the color found on the map at the impact's coordinates
 

@@ -32,7 +32,7 @@ pair<bool, Vec3> Sphere::intersect(Ray &ray){
 		return pair<bool, Vec3>(false, impact_point);
 	}
 	else { 
-		// one or two intersection
+		// one or two intersection(s)
 		float sqrt_discr = sqrtf(discr);
 		t0 = (-b - sqrt_discr) / (2.0f * a);
 		t1 = (-b + sqrt_discr) / (2.0f * a);
@@ -44,6 +44,7 @@ pair<bool, Vec3> Sphere::intersect(Ray &ray){
 	}
 	else{
 		// intersection: t0 and t1 > 0, t0 can be equal to t1
+		// use t0 because the distance between t0 and ray's origin it's littler than the other
 		impact_point = ray.getOrigin() + ray.getDirection() * t0;// p = origin + t0 * direction
 		return pair<bool, Vec3>(true, impact_point);
 	}

@@ -14,6 +14,7 @@ public:
 	Vec3(const Vec3& v1, const Vec3 &v2);
 
 	Vec3 operator*(const float a) const;
+	Vec3 operator/(const float a) const;
 	float operator*(const Vec3& v) const;
 
 	Vec3 operator+(const Vec3& v) const;
