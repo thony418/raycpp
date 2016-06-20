@@ -7,9 +7,11 @@
 #include "Ray.h"
 #include <thread>
 #include "Color.h"
+#include <omp.h>
 
 void renderingLoop(RenderWindow* window, Camera* cam, vector<SceneObject*>* objVect) {
 	Color tmp_color;
+	#pragma omp parallel for
 	for (int x = 0; x < 1024; x++) {
 		for (int y = 0; y < 768; y++) {
 			Ray currRay(cam->getRay(x, y));
@@ -37,7 +39,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	objVect.push_back(new Sphere(Vec3(-1.0f, 0.5f, 7.0f), 1.0f));
 	objVect.push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.5f), Vec3(0.0f, 0.1f, 0.0f)));
 
-	
 	thread renderThread(renderingLoop, &mainWindow, &cam, &objVect);
 
 	MSG msg = {};
