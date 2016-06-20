@@ -23,15 +23,14 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 
 	// normalize the vector (n is already normalized)
 	Vec3 l0 = ray.getOrigin();
-	Vec3 l = ray.getDirection().unit();
-	Vec3 p0 = position;
+	Vec3 l = ray.getDirection();
 
 	// calcul the denominator
-	float denom = n * l;
+	float denom = l * n;
 	// if the ray and the normal vector of the planar isn't parallel
 	if (denom > 1e-6) {
 		// calcul t for determinate if the ray intersect the planar
-		float t = ((p0-l0) * n) / denom;
+		float t = ((position - l0) * n) / denom;
 		// calcul the impact point
 		impact_point = l0 + l * t;
 		// verif if the impact point is in the square
