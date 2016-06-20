@@ -20,6 +20,9 @@ public:
 
 	Vec3 minCoordinates(){ return position * (- radius); };
 	Vec3 maxCoordinates(){ return position * radius; };
+
+	// Overridden method to match the sphere case
+	Vec3 computeBump(const Vec3& impact) const;
 private:
 	float radius;
 };

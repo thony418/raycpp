@@ -1,4 +1,5 @@
 #include "Planar.h"
+#include "Color.h"
 
 // Will create a planar at 0, 0, 0 with a side of 2
 Planar::Planar() {
@@ -71,15 +72,21 @@ Vec3 Planar::computeBump(const Vec3& impact) const {
 	Vec3 res = this->n;
 
 	// TODO : check if the material has a bump map
+	//int mapSize = 512;
 
-	Vec3 impactPositionOnObject = impact - this->getPosition();
+	//Vec3 impactPositionOnObject = impact - this->getPosition();
 
 	// Normalized x and y, to be multiply with the size of the map
-	float xNorm = 1 + this->halfWidth.unit()*impactPositionOnObject.unit();
+	/*float xNorm = 1 + this->halfWidth.unit()*impactPositionOnObject.unit();
 	float yNorm = 1 + this->halfHeight.unit()*impactPositionOnObject.unit();
-	// TODO: use x and y to get the matching point on the bump map
+	int x = (int)xNorm * mapSize;
+	int y = (int)yNorm * mapSize;*/
+
+	// TODO : Get the color at the coordinates
+	//Color c = Color(95, 95, 95);
 
 	// TODO : compute the normal with the color found on the map at the impact's coordinates
+	//res = res * c.getX();
 
 	return res;
 }

@@ -16,8 +16,8 @@ void renderingLoop(RenderWindow* window, Camera* cam, vector<SceneObject*>* objV
 			pair<Vec3, SceneObject*> intersection = collide(currRay, *objVect);
 
 			if (intersection.second != nullptr) {
-				tmp_color = currRay.phong_shading(intersection.first, Vec3(1.0, 1.0, 1.0), Material(0.2f, .5f, 0.5f, Color(255, 0, 0)),
-					Light());
+				tmp_color = currRay.phong_shading(intersection.first, intersection.second->computeBump(intersection.first),
+					Material(0.2f, .5f, 0.5f, Color(255, 0, 0)), Light(Vec3(10.0f, 0.0f, -10.0f), 1.0f, 1.0f, 1.0f));
 				int r = (int)(tmp_color.getX() * 255);
 				int g = (int)(tmp_color.getY() * 255);
 				int b = (int)(tmp_color.getZ() * 255);
@@ -33,8 +33,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	RenderWindow mainWindow(hInstance, nCmdShow);
 	Camera cam(Vec3(), Vec3(0.0f, 0.0f, 2.0f), 1024, 768);
 	vector<SceneObject*> objVect;
-	//objVect.push_back(new Sphere(Vec3(0.5f, 0.0f, 5.0f), 0.5f));
-	//objVect.push_back(new Sphere(Vec3(-1.0f, 0.5f, 7.0f), 1.0f));
+	objVect.push_back(new Sphere(Vec3(0.5f, 0.0f, 5.0f), 0.5f));
+	objVect.push_back(new Sphere(Vec3(-1.0f, 0.5f, 7.0f), 1.0f));
 	objVect.push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.5f), Vec3(0.0f, 0.1f, 0.0f)));
 
 	
