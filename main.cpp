@@ -16,7 +16,7 @@ void renderingLoop(RenderWindow* window, Camera* cam, vector<SceneObject*>* objV
 			pair<Vec3, SceneObject*> intersection = collide(currRay, *objVect);
 
 			if (intersection.second != nullptr) {
-				tmp_color = currRay.phong_shading(intersection.first, Vec3(1.0, 1.0, 1.0), Material(0.2f, 0.5f, 0.5f, Color(255, 0, 0)),
+				tmp_color = currRay.phong_shading(intersection.first, Vec3(1.0, 1.0, 1.0), Material(0.2f, .5f, 0.5f, Color(255, 0, 0)),
 					Light());
 				int r = (int)(tmp_color.getX() * 255);
 				int g = (int)(tmp_color.getY() * 255);

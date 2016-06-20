@@ -24,8 +24,8 @@ Color Ray::phong_ambiant(Material &mat, Light &light){
 */
 float lambertian(Vec3 &collision_point, Vec3 &normal, Light &light) {
 	Vec3 light_vector = Vec3(collision_point, light.getPosition());
-	float lambert = abs(normal * light_vector.unit());
-	return lambert;
+	float lambert = normal * light_vector.unit();
+	return (lambert > 0.0f) ? lambert : 0.0f;
 }
 /**
 *\fn Color Ray::phong_diffuse(Vec3 &collision_point, Vec3 &norm, Material &mat, Light &light)
