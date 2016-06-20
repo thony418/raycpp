@@ -13,6 +13,7 @@ public:
 	Vec3(const Vec3& v);
 	Vec3(const Vec3& v1, const Vec3 &v2);
 
+
 	Vec3 operator*(const float a) const;
 	Vec3 operator/(const float a) const;
 	float operator*(const Vec3& v) const;
@@ -27,6 +28,8 @@ public:
 	float length() const;
 
 	Vec3 unit() const;
+
+	Vec3 reflect(Vec3 &norm);
 
 	inline float getX() const { return x; };
 	inline float getY() const { return y; };
