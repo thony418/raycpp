@@ -34,7 +34,6 @@ float Vec3::length() const { return sqrtf(x*x + y*y + z*z); }
 
 Vec3 Vec3::unit() const { float len = this->length(); return Vec3(x / len, y / len, z / len); }
 
-Vec3 Vec3::reflect(Vec3 &norm)
-{
+Vec3 Vec3::reflect(Vec3 &norm){
 	return (*this - (2 * (*this * norm)) * norm).unit();
 }
