@@ -1,4 +1,5 @@
 #include "Planar.h"
+#include "Color.h"
 
 // Will create a planar at 0, 0, 0 with a side of 2
 Planar::Planar() {
@@ -22,15 +23,14 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 
 	// normalize the vector (n is already normalized)
 	Vec3 l0 = ray.getOrigin();
-	Vec3 l = ray.getDirection().unit();
-	Vec3 p0 = position;
+	Vec3 l = ray.getDirection();
 
 	// calcul the denominator
-	float denom = n * l;
+	float denom = l * n;
 	// if the ray and the normal vector of the planar isn't parallel
 	if (denom > 1e-6) {
 		// calcul t for determinate if the ray intersect the planar
-		float t = ((p0-l0) * n) / denom;
+		float t = ((position - l0) * n) / denom;
 		// calcul the impact point
 		impact_point = l0 + l * t;
 		// verif if the impact point is in the square
@@ -47,15 +47,21 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 }
 
 Vec3 Planar::minCoordinates() {
+	// determine greater x
 	float x = halfWidth.getX() > halfHeight.getX() ? halfWidth.getX() : halfHeight.getX();
+	// determine greater y
 	float y = halfWidth.getY() > halfHeight.getY() ? halfWidth.getY() : halfHeight.getY();
+	// determine greater z
 	float z = halfWidth.getZ() > halfHeight.getZ() ? halfWidth.getZ() : halfHeight.getZ();
 	return Vec3(position.getX() - x, position.getY() - y, position.getZ() - z);
 }
 
 Vec3 Planar::maxCoordinates() {
+	// determine greater x
 	float x = halfWidth.getX() > halfHeight.getX() ? halfWidth.getX() : halfHeight.getX();
+	// determine greater y
 	float y = halfWidth.getY() > halfHeight.getY() ? halfWidth.getY() : halfHeight.getY();
+	// determine greater z
 	float z = halfWidth.getZ() > halfHeight.getZ() ? halfWidth.getZ() : halfHeight.getZ();
 	return Vec3(position.getX() + x, position.getY() + y, position.getZ() + z);
 }
@@ -65,21 +71,27 @@ Vec3 Planar::maxCoordinates() {
 	Impact point given in the scene base
 	If the impacted planar has a bump map, will get the color value of this point on the map
 	Then, will compute and return the normal depending on the color found
-	Else, will return the normal of the planar
+	Else, will return the normal of the planar (normalized)
 */
 Vec3 Planar::computeBump(const Vec3& impact) const {
-	Vec3 res = this->n;
+	Vec3 res = Vec3() - this->n;
 
 	// TODO : check if the material has a bump map
+	//int mapSize = 512;
 
-	Vec3 impactPositionOnObject = impact - this->getPosition();
+	//Vec3 impactPositionOnObject = impact - this->getPosition();
 
 	// Normalized x and y, to be multiply with the size of the map
-	float xNorm = 1 + this->halfWidth.unit()*impactPositionOnObject.unit();
+	/*float xNorm = 1 + this->halfWidth.unit()*impactPositionOnObject.unit();
 	float yNorm = 1 + this->halfHeight.unit()*impactPositionOnObject.unit();
-	// TODO: use x and y to get the matching point on the bump map
+	int x = (int)xNorm * mapSize;
+	int y = (int)yNorm * mapSize;*/
+
+	// TODO : Get the color at the coordinates
+	//Color c = Color(95, 95, 95);
 
 	// TODO : compute the normal with the color found on the map at the impact's coordinates
+	//res = res * c.getX();
 
-	return res;
+	return res.unit();
 }

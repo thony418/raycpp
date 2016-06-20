@@ -17,9 +17,14 @@ public:
 	 * base on http://stackoverflow.com/questions/12678225/intersection-problems-with-ray-sphere-intersection
 	**/
 	pair<bool, Vec3> intersect(Ray &ray);
+	
+	// Overridden method to match the sphere case
+	Vec3 computeBump(const Vec3& impact) const;
 
-	Vec3 minCoordinates(){ return position * (- radius); };
-	Vec3 maxCoordinates(){ return position * radius; };
+	Vec3 minCoordinates(){ return position + (- radius); };
+	Vec3 maxCoordinates(){ return position + radius; };
+
+	void printSceneObject(){ cout << "Sphere:" << radius; };
 private:
 	float radius;
 };

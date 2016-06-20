@@ -2,6 +2,7 @@
 #include "Material.h"
 #include "Ray.h"
 #include <utility>
+#include <iostream>
 
 using namespace std;
 
@@ -17,9 +18,11 @@ public:
 	virtual Vec3 maxCoordinates() = 0;
 	
 	// Used to compute the bump of the object on the impact point if it has a bump map
-	inline Vec3 computeBump(const Vec3& impact) const { return Vec3(); };
+	virtual Vec3 computeBump(const Vec3& impact) const = 0;
 
 	Vec3 getPosition() const { return position; };
+
+	virtual void printSceneObject(){ cout << "simple scene object"; };
 protected:
 	// Represents the center of the object
 	Vec3 position;
