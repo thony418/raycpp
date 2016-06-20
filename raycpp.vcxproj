@@ -80,8 +80,11 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="collision.cpp" />
+    <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mat3.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Planar.cpp" />
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
@@ -92,6 +95,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="collision.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Mat3.h" />
     <ClInclude Include="Material.h" />
