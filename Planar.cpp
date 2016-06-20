@@ -20,7 +20,7 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 	// declare the impact point
 	Vec3 impact_point = ray.getOrigin();
 
-	// normalize the vector (n is already normalize)
+	// normalize the vector (n is already normalized)
 	Vec3 l0 = ray.getOrigin();
 	Vec3 l = ray.getDirection().unit();
 	Vec3 p0 = position;
@@ -33,10 +33,11 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 		float t = ((p0-l0) * n) / denom;
 		// calcul the impact point
 		impact_point = l0 + l * t;
-		// verif if the impact poinnt is in the square
-		if (impact_point.getX() < halfWidth.getX() && impact_point.getX() > -halfWidth.getX() 
-			&& impact_point.getY() < halfHeight.getY() && impact_point.getY() > -halfHeight.getY()){
-			return pair<bool, Vec3>(t >= 0, impact_point);
+		// verif if the impact point is in the square
+		if (impact_point.getX() < maxCoordinates().getX() && impact_point.getX() > minCoordinates().getX()
+			&& impact_point.getY() < maxCoordinates().getY() && impact_point.getY() > minCoordinates().getY() 
+			/*&& impact_point.getZ() <= maxCoordinates().getZ() && impact_point.getZ() >= minCoordinates().getZ()*/){
+				return pair<bool, Vec3>(t >= 0, impact_point);
 		}
 		else{
 			return pair<bool, Vec3>(false, impact_point);
@@ -46,11 +47,17 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 }
 
 Vec3 Planar::minCoordinates() {
-	return Vec3(-halfWidth.getX(), -halfHeight.getY(), position.getZ());
+	float x = halfWidth.getX() > halfHeight.getX() ? halfWidth.getX() : halfHeight.getX();
+	float y = halfWidth.getY() > halfHeight.getY() ? halfWidth.getY() : halfHeight.getY();
+	float z = halfWidth.getZ() > halfHeight.getZ() ? halfWidth.getZ() : halfHeight.getZ();
+	return Vec3(position.getX() - x, position.getY() - y, position.getZ() - z);
 }
 
 Vec3 Planar::maxCoordinates() {
-	return Vec3(halfWidth.getX(), halfHeight.getY(), position.getZ());
+	float x = halfWidth.getX() > halfHeight.getX() ? halfWidth.getX() : halfHeight.getX();
+	float y = halfWidth.getY() > halfHeight.getY() ? halfWidth.getY() : halfHeight.getY();
+	float z = halfWidth.getZ() > halfHeight.getZ() ? halfWidth.getZ() : halfHeight.getZ();
+	return Vec3(position.getX() + x, position.getY() + y, position.getZ() + z);
 }
 
 /*

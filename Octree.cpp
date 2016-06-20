@@ -3,18 +3,9 @@
 /**
  * Constructor
 **/
-
-Node::Node(Vec3 position, int size, vector<SceneObject*>* sceneObjects){
-	this->position = position;
-	this->size = size;
-	this->parent = nullptr;
-	this->children = vector<Node*>();
-	this->sceneObjects = sceneObjects;
-}
-
-Node::Node(Vec3 position, int size, Node* parent, vector<SceneObject*>* sceneObjects){
-	this->position = position;
-	this->size = size;
+Node::Node(Vec3 min, Vec3 max, Node* parent, vector<SceneObject*>* sceneObjects){
+	this->min = min;
+	this->max = max;
 	this->parent = parent;
 	this->children = vector<Node*>();
 	this->sceneObjects = sceneObjects;
@@ -51,15 +42,11 @@ Octree::Octree(vector<SceneObject*>* sceneObjects){
 			max.setX(max_tmp.getZ());
 		}
 	}
-	// calcul the center of the box root
-	Vec3 position = (min + max) / 2;
-	// calcul box size
-	int size = (int) (max.getX() - position.getX()); // TODO : test with Y or Z
 	// associate the root
-	root = new Node(position, size, sceneObjects);
+	root = new Node(min, max, nullptr, sceneObjects);
 	root->buildTree();
 }
 
 void Node::buildTree(){
-
+	
 }

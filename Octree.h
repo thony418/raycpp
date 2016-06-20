@@ -10,14 +10,13 @@ using namespace std;
 
 class Node{
 public:
-	Node(Vec3 position, int size, vector<SceneObject*>* sceneObjects);
-	Node(Vec3 position, int size, Node* parent, vector<SceneObject*>* sceneObjects);
+	Node(Vec3 min, Vec3 max, Node* parent, vector<SceneObject*>* sceneObjects);
 
 	void addChild(Node* child);
 	void buildTree();
 private:
-	Vec3 position;
-	int size;
+	Vec3 min;
+	Vec3 max;
 	Node* parent;
 	vector<Node*> children;
 	vector<SceneObject*>* sceneObjects;
