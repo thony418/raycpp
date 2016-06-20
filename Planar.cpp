@@ -48,15 +48,21 @@ pair<bool, Vec3> Planar::intersect(Ray &ray){
 }
 
 Vec3 Planar::minCoordinates() {
+	// determine greater x
 	float x = halfWidth.getX() > halfHeight.getX() ? halfWidth.getX() : halfHeight.getX();
+	// determine greater y
 	float y = halfWidth.getY() > halfHeight.getY() ? halfWidth.getY() : halfHeight.getY();
+	// determine greater z
 	float z = halfWidth.getZ() > halfHeight.getZ() ? halfWidth.getZ() : halfHeight.getZ();
 	return Vec3(position.getX() - x, position.getY() - y, position.getZ() - z);
 }
 
 Vec3 Planar::maxCoordinates() {
+	// determine greater x
 	float x = halfWidth.getX() > halfHeight.getX() ? halfWidth.getX() : halfHeight.getX();
+	// determine greater y
 	float y = halfWidth.getY() > halfHeight.getY() ? halfWidth.getY() : halfHeight.getY();
+	// determine greater z
 	float z = halfWidth.getZ() > halfHeight.getZ() ? halfWidth.getZ() : halfHeight.getZ();
 	return Vec3(position.getX() + x, position.getY() + y, position.getZ() + z);
 }

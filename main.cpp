@@ -7,6 +7,7 @@
 #include "Ray.h"
 #include <thread>
 #include "Color.h"
+#include "Octree.h"
 #include <omp.h>
 
 void renderingLoop(RenderWindow* window, Camera* cam, vector<SceneObject*>* objVect) {
@@ -37,8 +38,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	vector<SceneObject*> objVect;
 	objVect.push_back(new Sphere(Vec3(0.5f, 0.0f, 5.0f), 0.5f));
 	objVect.push_back(new Sphere(Vec3(-1.0f, 0.5f, 7.0f), 1.0f));
-	objVect.push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.5f), Vec3(0.0f, 0.1f, 0.0f)));
+	//objVect.push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.0f), Vec3(0.0f, 0.1f, 0.0f)));
+	//objVect.push_back(new Planar(Vec3(-0.1f, -0.1f, 1.0f), Vec3(0.01f, 0.0f, 0.0f), Vec3(0.0f, 0.01f, 0.01f)));
 
+	//Octree octree = Octree(&objVect);
+	
 	thread renderThread(renderingLoop, &mainWindow, &cam, &objVect);
 
 	MSG msg = {};
