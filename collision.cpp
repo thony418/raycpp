@@ -40,3 +40,17 @@ pair<Vec3, SceneObject*> collide(Ray &ray, Scene &scene){
 	vector<SceneObject*>* sceneObjects = scene.getSceneObjects();
 	return collide(ray, *sceneObjects);
 }
+
+bool is_collisionned(Ray &ray, vector<SceneObject*>& sceneObjects){
+	// declare the pair for the intersect function
+	pair<bool, Vec3> pair_intersect;
+	//for each object of the scene
+	for (vector<SceneObject*>::iterator it = sceneObjects.begin(); it != sceneObjects.end(); it++){
+		// determine if the ray intersect the object
+		pair_intersect = (*it)->intersect(ray);
+		if (pair_intersect.first){
+			return true;
+		}
+	}
+	return false;
+}

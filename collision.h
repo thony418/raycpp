@@ -9,3 +9,4 @@
 	**/
 	pair<Vec3, SceneObject*> collide(Ray &ray, vector<SceneObject*>& sceneObjects);
 	pair<Vec3, SceneObject*> collide(Ray &ray, Scene &scene);
+	bool is_collisionned(Ray &ray, vector<SceneObject*>& sceneObjects);
