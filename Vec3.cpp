@@ -19,6 +19,7 @@ Vec3 Vec3::operator+(const Vec3& v) const { return Vec3(x + v.x, y + v.y, z + v.
 Vec3 Vec3::operator+(const float a) const { return Vec3(a+x, a+y, a+z); }
 
 Vec3 Vec3::operator-(const Vec3& v) const { return Vec3(x - v.x, y - v.y, z - v.z); }
+
 /**
 *\fn Vec3 Vec3::operator-()
 *\brief unary opposite operator for vector
@@ -32,3 +33,7 @@ Vec3 Vec3::operator^(const Vec3& v) const { return Vec3(y*v.z - z*v.y, z*v.x - x
 float Vec3::length() const { return sqrtf(x*x + y*y + z*z); }
 
 Vec3 Vec3::unit() const { float len = this->length(); return Vec3(x / len, y / len, z / len); }
+
+Vec3 Vec3::reflect(Vec3 &norm){
+	return (((2 * (*this * norm)) * norm) - *this ).unit();
+}

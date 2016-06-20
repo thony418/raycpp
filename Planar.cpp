@@ -71,10 +71,10 @@ Vec3 Planar::maxCoordinates() {
 	Impact point given in the scene base
 	If the impacted planar has a bump map, will get the color value of this point on the map
 	Then, will compute and return the normal depending on the color found
-	Else, will return the normal of the planar
+	Else, will return the normal of the planar (normalized)
 */
 Vec3 Planar::computeBump(const Vec3& impact) const {
-	Vec3 res = this->n;
+	Vec3 res = Vec3() - this->n;
 
 	// TODO : check if the material has a bump map
 	//int mapSize = 512;
@@ -93,5 +93,5 @@ Vec3 Planar::computeBump(const Vec3& impact) const {
 	// TODO : compute the normal with the color found on the map at the impact's coordinates
 	//res = res * c.getX();
 
-	return res;
+	return res.unit();
 }

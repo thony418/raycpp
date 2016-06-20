@@ -1,4 +1,5 @@
 #include "Ray.h"
+#include <algorithm>
 
 Ray::Ray(Vec3 pOrigin, Vec3 vDir) : origin(pOrigin), direction(vDir) {}
 
@@ -34,8 +35,9 @@ float lambertian(Vec3 &collision_point, Vec3 &normal, Light &light) {
 *\return a new Color giving the RGB color componants each range between 0.0f and 1.0f
 */
 Color Ray::phong_diffuse(Vec3 &collision_point, Vec3 &norm, Material &mat, Light &light){
-	
-	return Color(mat.get_color() * mat.get_phong_diffuse() * light.get_diffuse() * lambertian(collision_point, norm, light));
+	Color diffuse_color(mat.get_color() * mat.get_phong_diffuse() * light.get_diffuse() * lambertian(collision_point, norm, light));
+	diffuse_color.normalise();
+	return diffuse_color;
 
 }
 
@@ -46,7 +48,14 @@ Color Ray::phong_diffuse(Vec3 &collision_point, Vec3 &norm, Material &mat, Light
 *\return a new Color giving the RGB color componants each range between 0.0f and 1.0f
 */
 Color Ray::phong_specular(Vec3 &collision_point, Vec3 &norm, Material &mat, Light &light){
-	return Color();
+	Vec3 light_vector = Vec3(collision_point, light.getPosition()).unit();
+	Vec3 reflected_light = (-light_vector).reflect(norm);
+	Color specular_color(mat.get_color() * mat.get_phong_specular() * light.get_specular() *
+						 pow( max(reflected_light * this->direction, 0.0f),
+							  mat.get_phong_alpha())
+						);
+	specular_color.normalise();
+	return specular_color;
 }
 
 

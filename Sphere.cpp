@@ -55,9 +55,9 @@ pair<bool, Vec3> Sphere::intersect(Ray &ray){
 	Impact point given in the scene base
 	If the impacted sphere has a bump map, will get the color value of this point on the map
 	Then, will compute and return the normal depending on the color found
-	Else, will return the normal of the planar
+	Else, will return the normal of the sphere (normalized)
 */
 Vec3 Sphere::computeBump(const Vec3& impact) const {
 	Vec3 res = impact - this->position;	// standard normal on the impact point
-	return res;
+	return res.unit();
 }
