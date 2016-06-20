@@ -8,9 +8,11 @@
 #include <thread>
 #include "Color.h"
 #include "Octree.h"
+#include <omp.h>
 
 void renderingLoop(RenderWindow* window, Camera* cam, vector<SceneObject*>* objVect) {
 	Color tmp_color;
+	#pragma omp parallel for
 	for (int x = 0; x < 1024; x++) {
 		for (int y = 0; y < 768; y++) {
 			Ray currRay(cam->getRay(x, y));
