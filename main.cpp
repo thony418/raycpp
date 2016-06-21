@@ -14,7 +14,7 @@
 void renderingLoop(RenderWindow* window, Camera* cam, Scene & scene) {
 	Color tmp_color;
 	Octree octree = Octree(scene.getSceneObjects());
-	#pragma omp parallel for
+	#pragma omp parallel for private(tmp_color)
 	for (int x = 0; x < 1024; x++) {
 		for (int y = 0; y < 768; y++) {
 			Ray currRay(cam->getRay(x, y));
