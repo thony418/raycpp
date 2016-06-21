@@ -3,10 +3,9 @@
 
 class Sphere : public SceneObject{
 public:
-	Sphere(Vec3 p, float radius){
-		this->position = p;
-		this->radius = radius;
+	Sphere(Vec3 p, float radius, Material material) : SceneObject(p, material), radius(radius){
 	}
+
 	/**
 	 * Determine the ray-sphere intersection
 	 * Solution Geometric : P = o+t*d

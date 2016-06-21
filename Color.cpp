@@ -1,4 +1,5 @@
 #include "Color.h"
+#include <algorithm>
 
 /**
 *\fn Color::Color()
@@ -34,9 +35,12 @@ Color::Color(const Vec3 &c): Vec3(c){}
 *\brief corrects the overflows
 */
 void Color::normalise() {
-	if (this->getX() > 1.0) this->setX(1.0f);
-	if (this->getY() > 1.0) this->setY(1.0f);
-	if (this->getZ() > 1.0) this->setZ(1.0f);
+	float max_overflow = max(this->getX(), this->getY(), this->getZ());
+	if (max_overflow > 1.0f) {
+		this->setX(this->getX() / max_overflow);
+		this->setY(this->getY() / max_overflow);
+		this->setZ(this->getZ() / max_overflow);
+	}
 }
 
 Color::~Color(){}

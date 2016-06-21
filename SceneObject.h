@@ -8,6 +8,8 @@ using namespace std;
 
 class SceneObject{
 public:
+
+	
 	/**
 	 * Determine if the ray have an intersection to the scene object
 	 * return: true and the impact point if intersect, false and origin of the ray if not intersect 
@@ -20,10 +22,13 @@ public:
 	// Used to compute the bump of the object on the impact point if it has a bump map
 	virtual Vec3 computeBump(const Vec3& impact) const = 0;
 
-	Vec3 getPosition() const { return position; };
+	inline Vec3 getPosition() const { return position; };
+	inline Material getMaterial() const { return material; };
 
 	virtual void printSceneObject(){ cout << "simple scene object"; };
 protected:
+	SceneObject();
+	SceneObject(Vec3 &position, Material &material);
 	// Represents the center of the object
 	Vec3 position;
 	Material material;
