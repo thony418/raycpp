@@ -9,9 +9,16 @@ Planar::Planar() {
 	this->n = (this->halfWidth^this->halfHeight).unit();
 }
 
-// Constructor with all the parameters
-Planar::Planar(Vec3 pos, Vec3 w, Vec3 h) {
+// Constructor with all the parameters for the position and size
+Planar::Planar(Vec3 &pos, Vec3 &w, Vec3 &h) {
 	this->position = pos;
+	this->halfWidth = w;
+	this->halfHeight = h;
+	this->n = (this->halfWidth^this->halfHeight).unit();
+}
+
+// Constructor will all the parameters
+Planar::Planar(Vec3 &pos, Vec3 &w, Vec3 &h, Material &m) : SceneObject(pos, m){
 	this->halfWidth = w;
 	this->halfHeight = h;
 	this->n = (this->halfWidth^this->halfHeight).unit();
