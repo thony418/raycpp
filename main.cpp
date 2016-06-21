@@ -13,7 +13,7 @@
 
 void renderingLoop(RenderWindow* window, Camera* cam, Scene & scene) {
 	Color tmp_color;
-	Octree octree = Octree(objVect);
+	Octree octree = Octree(scene.getSceneObjects());
 	#pragma omp parallel for
 	for (int x = 0; x < 1024; x++) {
 		for (int y = 0; y < 768; y++) {
@@ -32,15 +32,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	Camera cam( Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 1.0f), 1024, 768);
 	Scene scene = Scene();
 	scene.getLights()->push_back(new Light(Vec3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f, 1.0f));
-	scene.getSceneObjects()->push_back(new Sphere(Vec3(0.5f, 0.5f, 5.5f), 0.1f, Material(0.2f, 1.0f, 1.0f, 150.0f, Color(255, 0, 0))));
-	scene.getSceneObjects()->push_back(new Sphere(Vec3(1.0f, 1.0f, 5.0f), .25f, Material(0.2f, 1.0f, 1.0f, 150.0f, Color(255, 0, 0))));
+	scene.getSceneObjects()->push_back(new Sphere(Vec3(0.0f, 0.0f, 5.0f), 1.0f, Material(0.2f, 1.0f, 1.0f, 150.0f, Color(255, 0, 0))));
+	scene.getSceneObjects()->push_back(new Sphere(Vec3(1.0f, 1.0f, 7.0f), 2.0f, Material(0.2f, 1.0f, 1.0f, 150.0f, Color(255, 0, 0))));
 	
 	//scene.getSceneObjects()->push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.0f), Vec3(0.0f, 0.1f, 0.0f)));
 	//scene.getSceneObjects()->push_back(new Planar(Vec3(0.5f, 0.0f, 3.0f), Vec3(0.01f, 0.0f, 0.0f), Vec3(0.0f, 0.01f, 0.01f)));
 
 	//Octree octree = Octree(&objVect);
 	
-	thread renderThread(renderingLoop, &mainWindow, &cam, &scene);
+	thread renderThread(renderingLoop, &mainWindow, &cam, scene);
 
 	MSG msg = {};
 	while (GetMessage(&msg, NULL, 0, 0)) {

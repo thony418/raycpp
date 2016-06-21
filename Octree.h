@@ -11,6 +11,7 @@ using namespace std;
 
 class Node{
 public:
+	Node();
 	Node(Vec3 min, Vec3 max, vector<SceneObject*>* sceneObjects);
 	~Node();
 
@@ -43,6 +44,7 @@ private:
 
 class Octree{
 public:
+	Octree();
 	Octree(vector<SceneObject*>* sceneObjects);
 	~Octree();
 	vector<SceneObject*>* copy(vector<SceneObject*>* sceneObjects);

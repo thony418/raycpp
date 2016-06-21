@@ -4,6 +4,12 @@
 /**
  * Constructor
 **/
+Node::Node() : minim(Vec3()), maxim(Vec3()) {
+	children = new vector<Node*>();
+	sceneObjects = new vector<SceneObject*>();
+}
+
+
 Node::Node(Vec3 min, Vec3 max, vector<SceneObject*>* sceneObjects){
 	this->minim = min;
 	this->maxim = max;
@@ -20,6 +26,10 @@ Node::~Node(){
 		delete (*child);
 	}
 	delete children;
+}
+
+Octree::Octree() {
+	root = new Node();
 }
 
 Octree::Octree(vector<SceneObject*>* sceneObjects){

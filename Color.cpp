@@ -35,7 +35,7 @@ Color::Color(const Vec3 &c): Vec3(c){}
 *\brief corrects the overflows
 */
 void Color::normalise() {
-	float max_overflow = max(this->getX(), this->getY(), this->getZ());
+	float max_overflow = max(max(this->getX(), this->getY()), this->getZ());
 	if (max_overflow > 1.0f) {
 		this->setX(this->getX() / max_overflow);
 		this->setY(this->getY() / max_overflow);
