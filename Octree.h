@@ -19,9 +19,11 @@ public:
 	void buildTree();
 	bool Contains(SceneObject*);
 	void printNode();
+	pair<Vec3, SceneObject*> collide(Ray &ray);
+	bool intersectRegion(Ray &ray);
 private:
-	Vec3 min;
-	Vec3 max;
+	Vec3 minim;
+	Vec3 maxim;
 	Node* parent;
 	vector<Node*>* children;
 	vector<SceneObject*>* sceneObjects;
@@ -33,6 +35,7 @@ public:
 	~Octree();
 	vector<SceneObject*>* copy(vector<SceneObject*>* sceneObjects);
 	void printOctree();
+	pair<Vec3, SceneObject*> collide(Ray &ray);
 private:
 	// root node represent the all space
 	Node* root;

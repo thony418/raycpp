@@ -9,14 +9,16 @@
 #include "Color.h"
 #include "Octree.h"
 #include <omp.h>
+#include "Box.h"
 
 void renderingLoop(RenderWindow* window, Camera* cam, vector<SceneObject*>* objVect) {
 	Color tmp_color;
+	Octree octree = Octree(objVect);
 	#pragma omp parallel for
 	for (int x = 0; x < 1024; x++) {
 		for (int y = 0; y < 768; y++) {
 			Ray currRay(cam->getRay(x, y));
-			pair<Vec3, SceneObject*> intersection = collide(currRay, *objVect);
+			pair<Vec3, SceneObject*> intersection = octree.collide(currRay);
 
 			if (intersection.second != nullptr) {
 				tmp_color = currRay.phong_shading(intersection.first,
@@ -40,8 +42,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	vector<SceneObject*> objVect;
 	objVect.push_back(new Sphere(Vec3(0.5f, 0.0f, 5.0f), 0.5f));
 	objVect.push_back(new Sphere(Vec3(-1.0f, 0.5f, 7.0f), 1.0f));
-	//objVect.push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.0f), Vec3(0.0f, 0.1f, 0.0f)));
-	//objVect.push_back(new Planar(Vec3(-0.1f, -0.1f, 1.0f), Vec3(0.01f, 0.0f, 0.0f), Vec3(0.0f, 0.01f, 0.01f)));
+	objVect.push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.1f), Vec3(0.0f, 0.1f, 0.0f)));
+	objVect.push_back(new Planar(Vec3(-0.1f, -0.1f, 1.0f), Vec3(0.01f, 0.0f, 0.0f), Vec3(0.0f, 0.01f, 0.01f)));
+	//objVect.push_back(new Box(Vec3(-0.1f, 0.0f, 1.0f), Vec3(-0.1f, -0.1f, -0.1f), Vec3(0.1f, 0.1f, 0.1f)));
 
 	//Octree octree = Octree(&objVect);
 	
