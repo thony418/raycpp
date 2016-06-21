@@ -1,23 +1,25 @@
 #include "Octree.h"
+#include <algorithm>
 
 /**
  * Constructor
 **/
-Node::Node(Vec3 min, Vec3 max, Node* parent, vector<SceneObject*>* sceneObjects){
-	this->min = min;
-	this->max = max;
-	this->parent = parent;
+Node::Node(Vec3 min, Vec3 max, vector<SceneObject*>* sceneObjects){
+	this->minim = min;
+	this->maxim = max;
 	this->children = new vector<Node*>();
 	this->sceneObjects = sceneObjects;
 }
 
 Node::~Node(){
-	for (vector<SceneObject*>::iterator obj = sceneObjects->begin(); obj != sceneObjects->end(); obj++){
-		delete (*obj);
+	for (vector<SceneObject*>::iterator it = sceneObjects->begin(); it != sceneObjects->end(); it++){
+		delete (*it);
 	}
+	delete sceneObjects;
 	for (vector<Node*>::iterator child = children->begin(); child != children->end(); child++){
 		delete (*child);
 	}
+	delete children;
 }
 
 Octree::Octree(vector<SceneObject*>* sceneObjects){
@@ -53,18 +55,12 @@ Octree::Octree(vector<SceneObject*>* sceneObjects){
 		}
 	}
 	// associate the root
-	root = new Node(min, max, nullptr, my_sceneObjects);
+	root = new Node(min, max, my_sceneObjects);
 	root->buildTree();
-
-	printOctree();
 }
 
 Octree::~Octree(){
 	delete root;
-}
-
-void Octree::printOctree(){
-	root->printNode();
 }
 
 vector<SceneObject*>* Octree::copy(vector<SceneObject*>* sceneObjects){
@@ -75,6 +71,10 @@ vector<SceneObject*>* Octree::copy(vector<SceneObject*>* sceneObjects){
 	return copy;
 }
 
+pair<Vec3, SceneObject*> Octree::collide(Ray &ray){
+	return root->collide(ray);
+}
+
 void Node::buildTree(){
 	//  verif if the sceneObjects contains more of one object
 	if ((int) sceneObjects->size() <= 1){
@@ -82,7 +82,7 @@ void Node::buildTree(){
 	}
 
 	// calculate the dimensions of the region
-	Vec3 dimension = max - min;
+	Vec3 dimension = maxim - minim;
 
 	// determinate if the region's dimension are greater than the minimal dimensions
 	if (dimension.getX() <= MIN_SIZE && dimension.getY() <= MIN_SIZE && dimension.getZ() <= MIN_SIZE){
@@ -90,24 +90,24 @@ void Node::buildTree(){
 	}
 
 	Vec3 half = dimension / 2;
-	Vec3 center = min + half;
+	Vec3 center = minim + half;
 
 	// construct the children and add to the parent list
-	Node* childSW = new Node(min, center, this, new vector<SceneObject*>());
+	Node* childSW = new Node(minim, center, new vector<SceneObject*>());
 	addChild(childSW);
-	Node* childSE = new Node(Vec3(center.getX(), min.getY(), min.getZ()), Vec3(max.getX(), center.getY(), center.getZ()), this, new vector<SceneObject*>());
+	Node* childSE = new Node(Vec3(center.getX(), minim.getY(), minim.getZ()), Vec3(maxim.getX(), center.getY(), center.getZ()), new vector<SceneObject*>());
 	addChild(childSE);
-	Node* childSED = new Node(Vec3(center.getX(), min.getY(), center.getZ()), Vec3(max.getX(), center.getY(), max.getZ()), this, new vector<SceneObject*>());
+	Node* childSED = new Node(Vec3(center.getX(), minim.getY(), center.getZ()), Vec3(maxim.getX(), center.getY(), maxim.getZ()), new vector<SceneObject*>());
 	addChild(childSED);
-	Node* childSWD = new Node(Vec3(min.getX(), min.getY(), center.getZ()), Vec3(center.getX(), center.getY(), max.getZ()), this, new vector<SceneObject*>());
+	Node* childSWD = new Node(Vec3(minim.getX(), minim.getY(), center.getZ()), Vec3(center.getX(), center.getY(), maxim.getZ()), new vector<SceneObject*>());
 	addChild(childSWD);
-	Node* childNW = new Node(Vec3(min.getX(), center.getY(), min.getZ()), Vec3(center.getX(), max.getY(), center.getZ()), this, new vector<SceneObject*>());
+	Node* childNW = new Node(Vec3(minim.getX(), center.getY(), minim.getZ()), Vec3(center.getX(), maxim.getY(), center.getZ()), new vector<SceneObject*>());
 	addChild(childNW);
-	Node* childNE = new Node(Vec3(center.getX(), center.getY(), min.getZ()), Vec3(max.getX(), max.getY(), center.getZ()), this, new vector<SceneObject*>());
+	Node* childNE = new Node(Vec3(center.getX(), center.getY(), minim.getZ()), Vec3(maxim.getX(), maxim.getY(), center.getZ()), new vector<SceneObject*>());
 	addChild(childNE);
-	Node* childNED = new Node(center, max, this, new vector<SceneObject*>());
+	Node* childNED = new Node(center, maxim, new vector<SceneObject*>());
 	addChild(childNED);
-	Node* childNWD = new Node(Vec3(min.getX(), center.getY(), center.getZ()), Vec3(center.getX(), max.getY(), max.getZ()), this, new vector<SceneObject*>());
+	Node* childNWD = new Node(Vec3(minim.getX(), center.getY(), center.getZ()), Vec3(center.getX(), maxim.getY(), maxim.getZ()), new vector<SceneObject*>());
 	addChild(childNWD);
 
 	// contains all of the objects which got moved down the tree and can be erase from this node.
@@ -134,26 +134,96 @@ void Node::buildTree(){
 }
 
 bool Node::Contains(SceneObject* sceneObject){
-	return sceneObject->minCoordinates().getX() >= min.getX()
-		&& sceneObject->minCoordinates().getY() >= min.getY()
-		&& sceneObject->minCoordinates().getZ() >= min.getZ()
-		&& sceneObject->maxCoordinates().getX() <= max.getX()
-		&& sceneObject->maxCoordinates().getY() <= max.getY()
-		&& sceneObject->maxCoordinates().getZ() <= max.getZ();
+	return sceneObject->minCoordinates().getX() >= minim.getX()
+		&& sceneObject->minCoordinates().getY() >= minim.getY()
+		&& sceneObject->minCoordinates().getZ() >= minim.getZ()
+		&& sceneObject->maxCoordinates().getX() <= maxim.getX()
+		&& sceneObject->maxCoordinates().getY() <= maxim.getY()
+		&& sceneObject->maxCoordinates().getZ() <= maxim.getZ();
 }
 
-void Node::printNode(){
-	if ((int)sceneObjects->size() > 0){
-		cout << "[";
-		for (vector<SceneObject*>::iterator obj = sceneObjects->begin(); obj != sceneObjects->end(); obj++){
-			(*obj)->printSceneObject();
-			cout << ", ";
-		}
-		cout << "]" << endl;
+pair<Vec3, SceneObject*> Node::collide(Ray &ray){
+	// if no more child and no more sceneObject return null for close the recursion
+	if ((int)sceneObjects->size() == 0 && (int) children->size() == 0){
+		return pair<Vec3, SceneObject*>(Vec3(0, 0, 0), nullptr);
 	}
-	if ((int)children->size() > 0){
-		for (vector<Node*>::iterator child = children->begin(); child != children->end(); child++){
-			(*child)->printNode();
+	// init the best impact point to the ray position
+	Vec3 best_impact_point = ray.getOrigin();
+	// declare the best scene object;
+	SceneObject* best_sceneObject = nullptr;
+	// declare the best distance
+	float best_dist = numeric_limits<float>::infinity();
+	// declare the current distance
+	float dist = 0.0;
+	// declare the pair for the intersect function
+	pair<bool, Vec3> pair_intersect;
+	// declare impact point
+	Vec3 impact_point;
+
+	for (vector<SceneObject*>::iterator obj = sceneObjects->begin(); obj != sceneObjects->end(); obj++){
+		// determine if the ray intersect the object
+		pair_intersect = (*obj)->intersect(ray);
+		if (pair_intersect.first){
+			// compute the distance between the ray and the impact point
+			impact_point = pair_intersect.second - ray.getOrigin();
+			dist = impact_point.length();
+			// if it's the best
+			if (best_dist > dist){
+				best_dist = dist;
+				best_sceneObject = *obj;
+				best_impact_point = pair_intersect.second;
+			}
 		}
 	}
+
+	// if we find an objet it's the best of the branch
+	if (best_sceneObject != nullptr){
+		return pair<Vec3, SceneObject*>(best_impact_point, best_sceneObject);
+	}
+
+	// check the collide with the children
+	pair<Vec3, SceneObject*> pair_collide;
+	for (vector<Node*>::iterator child = children->begin(); child != children->end(); child++){
+		if ((*child)->intersectRegion(ray)){
+			pair_collide = (*child)->collide(ray);
+			if (pair_collide.second != nullptr){
+				best_sceneObject = pair_collide.second;
+				best_impact_point = pair_collide.first;
+				break;
+			}
+		}
+	}
+
+	return pair<Vec3, SceneObject*>(best_impact_point, best_sceneObject);
+}
+
+bool Node::intersectRegion(Ray &ray){
+	float tmin = (minim.getX() - ray.getOrigin().getX()) / ray.getDirection().getX();
+	float tmax = (maxim.getX() - ray.getOrigin().getX()) / ray.getDirection().getX();
+
+	if (tmin > tmax) swap(tmin, tmax);
+
+	float tymin = (minim.getY() - ray.getOrigin().getY()) / ray.getDirection().getY();
+	float tymax = (maxim.getY() - ray.getOrigin().getY()) / ray.getDirection().getY();
+
+	if (tymin > tymax) swap(tymin, tymax);
+
+	if ((tmin > tymax) || (tymin > tmax))
+		return false;
+
+	tmin = min(tymin, tmin);
+	tmax = min(tymax, tmax);
+
+	float tzmin = (minim.getZ() - ray.getOrigin().getZ()) / ray.getDirection().getZ();
+	float tzmax = (maxim.getZ() - ray.getOrigin().getZ()) / ray.getDirection().getZ();
+
+	if (tzmin > tzmax) swap(tzmin, tzmax);
+
+	if ((tmin > tzmax) || (tzmin > tmax))
+		return false;
+
+	tmin = min(tzmin, tmin);
+	tmax = min(tzmax, tmax);
+
+	return true;
 }

@@ -63,6 +63,9 @@
     <ClCompile Include="Light.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
     <ClCompile Include="SceneObject.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Fichiers d%27en-tête\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

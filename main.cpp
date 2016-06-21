@@ -9,9 +9,11 @@
 #include "Color.h"
 #include "Octree.h"
 #include <omp.h>
+#include "Box.h"
 
 void renderingLoop(RenderWindow* window, Camera* cam, Scene & scene) {
 	Color tmp_color;
+	Octree octree = Octree(objVect);
 	#pragma omp parallel for
 	for (int x = 0; x < 1024; x++) {
 		for (int y = 0; y < 768; y++) {

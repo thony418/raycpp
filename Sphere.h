@@ -22,8 +22,6 @@ public:
 
 	Vec3 minCoordinates(){ return position + (- radius); };
 	Vec3 maxCoordinates(){ return position + radius; };
-
-	void printSceneObject(){ cout << "Sphere:" << radius; };
 private:
 	float radius;
 };
