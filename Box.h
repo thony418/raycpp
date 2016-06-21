@@ -16,8 +16,6 @@ public:
 
 	Vec3 minCoordinates(){ return position + minim; };
 	Vec3 maxCoordinates(){ return position + maxim; };
-
-	void printSceneObject(){ cout << "Box:"; };
 private:
 	Vec3 minim;
 	Vec3 maxim;

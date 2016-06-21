@@ -21,8 +21,6 @@ public:
 	virtual Vec3 computeBump(const Vec3& impact) const = 0;
 
 	Vec3 getPosition() const { return position; };
-
-	virtual void printSceneObject(){ cout << "simple scene object"; };
 protected:
 	// Represents the center of the object
 	Vec3 position;

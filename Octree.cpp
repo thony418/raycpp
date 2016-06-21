@@ -4,10 +4,9 @@
 /**
  * Constructor
 **/
-Node::Node(Vec3 min, Vec3 max, Node* parent, vector<SceneObject*>* sceneObjects){
+Node::Node(Vec3 min, Vec3 max, vector<SceneObject*>* sceneObjects){
 	this->minim = min;
 	this->maxim = max;
-	this->parent = parent;
 	this->children = new vector<Node*>();
 	this->sceneObjects = sceneObjects;
 }
@@ -16,9 +15,11 @@ Node::~Node(){
 	for (vector<SceneObject*>::iterator it = sceneObjects->begin(); it != sceneObjects->end(); it++){
 		delete (*it);
 	}
+	delete sceneObjects;
 	for (vector<Node*>::iterator child = children->begin(); child != children->end(); child++){
 		delete (*child);
 	}
+	delete children;
 }
 
 Octree::Octree(vector<SceneObject*>* sceneObjects){
@@ -54,18 +55,12 @@ Octree::Octree(vector<SceneObject*>* sceneObjects){
 		}
 	}
 	// associate the root
-	root = new Node(min, max, nullptr, my_sceneObjects);
+	root = new Node(min, max, my_sceneObjects);
 	root->buildTree();
-
-	printOctree();
 }
 
 Octree::~Octree(){
 	delete root;
-}
-
-void Octree::printOctree(){
-	root->printNode();
 }
 
 vector<SceneObject*>* Octree::copy(vector<SceneObject*>* sceneObjects){
@@ -98,21 +93,21 @@ void Node::buildTree(){
 	Vec3 center = minim + half;
 
 	// construct the children and add to the parent list
-	Node* childSW = new Node(minim, center, this, new vector<SceneObject*>());
+	Node* childSW = new Node(minim, center, new vector<SceneObject*>());
 	addChild(childSW);
-	Node* childSE = new Node(Vec3(center.getX(), minim.getY(), minim.getZ()), Vec3(maxim.getX(), center.getY(), center.getZ()), this, new vector<SceneObject*>());
+	Node* childSE = new Node(Vec3(center.getX(), minim.getY(), minim.getZ()), Vec3(maxim.getX(), center.getY(), center.getZ()), new vector<SceneObject*>());
 	addChild(childSE);
-	Node* childSED = new Node(Vec3(center.getX(), minim.getY(), center.getZ()), Vec3(maxim.getX(), center.getY(), maxim.getZ()), this, new vector<SceneObject*>());
+	Node* childSED = new Node(Vec3(center.getX(), minim.getY(), center.getZ()), Vec3(maxim.getX(), center.getY(), maxim.getZ()), new vector<SceneObject*>());
 	addChild(childSED);
-	Node* childSWD = new Node(Vec3(minim.getX(), minim.getY(), center.getZ()), Vec3(center.getX(), center.getY(), maxim.getZ()), this, new vector<SceneObject*>());
+	Node* childSWD = new Node(Vec3(minim.getX(), minim.getY(), center.getZ()), Vec3(center.getX(), center.getY(), maxim.getZ()), new vector<SceneObject*>());
 	addChild(childSWD);
-	Node* childNW = new Node(Vec3(minim.getX(), center.getY(), minim.getZ()), Vec3(center.getX(), maxim.getY(), center.getZ()), this, new vector<SceneObject*>());
+	Node* childNW = new Node(Vec3(minim.getX(), center.getY(), minim.getZ()), Vec3(center.getX(), maxim.getY(), center.getZ()), new vector<SceneObject*>());
 	addChild(childNW);
-	Node* childNE = new Node(Vec3(center.getX(), center.getY(), minim.getZ()), Vec3(maxim.getX(), maxim.getY(), center.getZ()), this, new vector<SceneObject*>());
+	Node* childNE = new Node(Vec3(center.getX(), center.getY(), minim.getZ()), Vec3(maxim.getX(), maxim.getY(), center.getZ()), new vector<SceneObject*>());
 	addChild(childNE);
-	Node* childNED = new Node(center, maxim, this, new vector<SceneObject*>());
+	Node* childNED = new Node(center, maxim, new vector<SceneObject*>());
 	addChild(childNED);
-	Node* childNWD = new Node(Vec3(minim.getX(), center.getY(), center.getZ()), Vec3(center.getX(), maxim.getY(), maxim.getZ()), this, new vector<SceneObject*>());
+	Node* childNWD = new Node(Vec3(minim.getX(), center.getY(), center.getZ()), Vec3(center.getX(), maxim.getY(), maxim.getZ()), new vector<SceneObject*>());
 	addChild(childNWD);
 
 	// contains all of the objects which got moved down the tree and can be erase from this node.
@@ -147,23 +142,8 @@ bool Node::Contains(SceneObject* sceneObject){
 		&& sceneObject->maxCoordinates().getZ() <= maxim.getZ();
 }
 
-void Node::printNode(){
-	if ((int)sceneObjects->size() > 0){
-		cout << "[";
-		for (vector<SceneObject*>::iterator obj = sceneObjects->begin(); obj != sceneObjects->end(); obj++){
-			(*obj)->printSceneObject();
-			cout << ", ";
-		}
-		cout << "]" << endl;
-	}
-	if ((int)children->size() > 0){
-		for (vector<Node*>::iterator child = children->begin(); child != children->end(); child++){
-			(*child)->printNode();
-		}
-	}
-}
-
 pair<Vec3, SceneObject*> Node::collide(Ray &ray){
+	// if no more child and no more sceneObject return null for close the recursion
 	if ((int)sceneObjects->size() == 0 && (int) children->size() == 0){
 		return pair<Vec3, SceneObject*>(Vec3(0, 0, 0), nullptr);
 	}
@@ -196,10 +176,12 @@ pair<Vec3, SceneObject*> Node::collide(Ray &ray){
 		}
 	}
 
+	// if we find an objet it's the best of the branch
 	if (best_sceneObject != nullptr){
 		return pair<Vec3, SceneObject*>(best_impact_point, best_sceneObject);
 	}
 
+	// check the collide with the children
 	pair<Vec3, SceneObject*> pair_collide;
 	for (vector<Node*>::iterator child = children->begin(); child != children->end(); child++){
 		if ((*child)->intersectRegion(ray)){

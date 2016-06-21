@@ -22,8 +22,6 @@ public:
 
 	// Overridden method to match the planar case
 	Vec3 computeBump(const Vec3& impact) const;
-
-	void printSceneObject(){ cout << "Planar: < " << halfWidth.getX() << ", " << halfWidth.getY() << ", " << halfWidth.getZ() << " >"; };
 private:
 	// Normal vector of the planar
 	Vec3 n;
