@@ -13,6 +13,13 @@ public:
 	float get_phong_diffuse() { return phong_diffuse_factor; };
 	float get_phong_specular() { return phong_specular_factor; };
 	float get_phong_alpha() { return phong_specular_alpha; };
+
+	// Functions regarding the bump map
+	inline bool has_bump_map() const { return bump_map.isDefined(); }
+	inline Color get_pixel_at(unsigned int i) const { return bump_map[i]; }
+	inline unsigned int get_bump_map_width() const { return bump_map.getWidth(); }
+	inline unsigned int get_bump_map_height() const { return bump_map.getHeight(); }
+
 private:
 	float phong_ambiant_factor, phong_diffuse_factor, phong_specular_factor, phong_specular_alpha ;
 	Color color;

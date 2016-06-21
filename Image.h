@@ -22,7 +22,10 @@ public:
 	inline Color& operator [] (const unsigned int i) { return this->pixels.get()[i]; } // reading and writting
 
 	// Manipulations on images
+	inline unsigned int getWidth() const { return this->w; }
+	inline unsigned int getHeight() const { return this->h; }
 	void readPPM(const char* file);
+	bool isDefined() const { return pixels ? true : false; }	// return true if the pointer pixels is defined
 
 private:
 	unsigned int w, h; // image resolution

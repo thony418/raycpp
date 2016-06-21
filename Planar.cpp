@@ -82,23 +82,30 @@ Vec3 Planar::maxCoordinates() {
 */
 Vec3 Planar::computeBump(const Vec3& impact) const {
 	Vec3 res = Vec3() - this->n;
+	
+	if (this->material.has_bump_map()) {
+		Vec3 impactPositionOnObject = impact - this->position;
+		unsigned int mapWidth = this->material.get_bump_map_width();
+		unsigned int mapHeight = this->material.get_bump_map_height();
 
-	// TODO : check if the material has a bump map
-	//int mapSize = 512;
+		float xNorm = impactPositionOnObject*this->halfWidth;
+		float yNorm = impactPositionOnObject*this->halfHeight;
 
-	//Vec3 impactPositionOnObject = impact - this->getPosition();
+		float dx = xNorm / this->halfWidth.length();
+		float dy = yNorm / this->halfHeight.length();
 
-	// Normalized x and y, to be multiply with the size of the map
-	/*float xNorm = 1 + this->halfWidth.unit()*impactPositionOnObject.unit();
-	float yNorm = 1 + this->halfHeight.unit()*impactPositionOnObject.unit();
-	int x = (int)xNorm * mapSize;
-	int y = (int)yNorm * mapSize;*/
+		float dxPx = dx * (mapWidth / 2);
+		float dyPx = dy * (mapHeight / 2);
 
-	// TODO : Get the color at the coordinates
-	//Color c = Color(95, 95, 95);
+		int x = (int) (dxPx + (mapWidth / 2));
+		int y = (int)(dyPx + (mapHeight / 2));
 
-	// TODO : compute the normal with the color found on the map at the impact's coordinates
-	//res = res * c.getX();
+		Color c = this->material.get_pixel_at(x + mapWidth*y);
 
-	return res.unit();
+		res.setX(1 * c.getX());
+		res.setY(1 * c.getY());
+		res.setZ(1 * c.getZ());
+	}
+	
+	return res;
 }
