@@ -6,6 +6,7 @@ Material::Material(){
 	phong_specular_factor = 0.0f;
 	color = Vec3();
 	bump_map = Image();
+	transparent = false;
 }
 
 Material::Material(float amb, float diff, float spec, float alpha, Color color): phong_ambiant_factor(amb),

@@ -73,13 +73,13 @@ Color Ray::phong_specular(Vec3 &collision_point, Vec3 & norm, Material & mat, Sc
 	Color specular_color = Color();
 	Vec3 light_direction, reflected_light;
 	Light *curr_light;
-	pair<Vec3, SceneObject*> light_intersect;
+	pair<Vec3, SceneObject*> light_intersect, reflect_intersect;
 
 	for (int i = 0; i < scene.getLights()->size(); i++) { // for each light in the scene, combine shadings for the current ray
 		curr_light = scene.getLights()->at(i);
 		light_direction = Vec3(collision_point, curr_light->getPosition()).unit();
 		light_intersect = collide(Ray(collision_point, light_direction, 0), *(scene.getSceneObjects()));
-		if (true) {
+		if (light_intersect.second == nullptr || Vec3(light_intersect.first, collision_point).length() > 0.05f) {
 			reflected_light = (-light_direction).reflect(norm);
 			specular_color = (specular_color * (float)i) + (Color(	mat.get_color() * mat.get_phong_specular() * curr_light->get_specular() *
 																	pow(max(reflected_light * this->direction, 0.0f),
@@ -87,6 +87,11 @@ Color Ray::phong_specular(Vec3 &collision_point, Vec3 & norm, Material & mat, Sc
 																	));
 			specular_color = specular_color / ((float)(i + 1));
 		}
+	}
+	Ray reflect_ray = Ray(collision_point, this->direction.reflect(norm), this->ttl - 1);
+	reflect_intersect = collide(reflect_ray, *(scene.getSceneObjects()));
+	if (reflect_intersect.second != nullptr && Vec3(reflect_intersect.first, collision_point).length() > 0.05f) {
+		specular_color = specular_color / 2.0f + reflect_ray.phong_shading(scene) / 2.0f;
 	}
 	specular_color.normalise();
 	return specular_color;
@@ -113,12 +118,12 @@ Color Ray::phong_shading(Scene & scene)
 			 norm = intersection.second->computeBump(intersection.first);
 
 		//calculate phong's components
-		//amb = phong_ambiant(mat, scene);
-		amb = Color(255,0,0);
-		//dif = phong_diffuse(collision_point, norm, mat, scene);
-		dif = Color(0,0,0);
-		//spe = phong_specular(collision_point, norm, mat, scene);
-		spe = Color();
+		amb = phong_ambiant(mat, scene);
+		//amb = Color(255,0,0);
+		dif = phong_diffuse(collision_point, norm, mat, scene);
+		//dif = Color(0,0,0);
+		spe = phong_specular(collision_point, norm, mat, scene);
+		//spe = Color();
 		if (this->ttl <= 0) { //if end of life of ray return
 			composition = (amb * (1.0f / 3.0f)) + (dif * (1.0f / 3.0f)) +(spe * (1.0f / 3.0f));
 		} else { // else combine with reflexion

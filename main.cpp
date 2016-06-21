@@ -14,7 +14,7 @@
 void renderingLoop(RenderWindow* window, Camera* cam, Scene & scene) {
 	Color tmp_color;
 	Octree octree = Octree(scene.getSceneObjects());
-	#pragma omp parallel for
+	//#pragma omp parallel for
 	for (int x = 0; x < 1024; x++) {
 		for (int y = 0; y < 768; y++) {
 			Ray currRay(cam->getRay(x, y));
@@ -33,11 +33,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	Scene scene = Scene();
 	scene.getLights()->push_back(new Light(Vec3(-10.0f, 0.0f, 0.0f), 0.5f, .5f, .5f));
 	scene.getLights()->push_back(new Light(Vec3(10.0f, 10.0f, 0.0f), 1.5f, 1.5f, 1.5f));
-	//scene.getSceneObjects()->push_back(new Sphere(Vec3(0.0f, 0.0f, 5.0f), 1.0f, Material(0.2f, 1.0f, 1.0f, 150.0f, Color(255, 0, 0))));
-	//scene.getSceneObjects()->push_back(new Sphere(Vec3(1.0f, 1.0f, 7.0f), 2.0f, Material(0.2f, 1.0f, 1.0f, 150.0f, Color(255, 0, 0))));
+	scene.getSceneObjects()->push_back(new Sphere(Vec3(0.0f, 0.0f, 5.0f), 1.0f, Material(0.2f, 1.0f, 1.0f, 150.0f, Color(255, 0, 0))));
+	scene.getSceneObjects()->push_back(new Sphere(Vec3(1.0f, 1.0f, 7.0f), 2.0f, Material(0.2f, 1.0f, 1.0f, 150.0f, Color(255, 0, 0))));
 	
-	scene.getSceneObjects()->push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.0f), Vec3(0.0f, 0.1f, 0.0f),
-													Material(1.0f, 1.0f, 1.0f, 1.0f, Color(0, 0, 255), "Maps/brickwall_bump.ppm")));
+	//scene.getSceneObjects()->push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.0f), Vec3(0.0f, 0.1f, 0.0f),
+	//												Material(1.0f, 1.0f, 1.0f, 1.0f, Color(0, 0, 255), "Maps/brickwall_bump.ppm")));
 	//scene.getSceneObjects()->push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.0f), Vec3(0.0f, 0.1f, 0.0f)));
 	//scene.getSceneObjects()->push_back(new Planar(Vec3(0.5f, 0.0f, 3.0f), Vec3(0.01f, 0.0f, 0.0f), Vec3(0.0f, 0.01f, 0.01f)));
 
