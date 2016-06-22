@@ -159,8 +159,12 @@ pair<Vec3, SceneObject*> Node::collide(Ray &ray){
 	}
 	// init the best impact point to the ray position
 	Vec3 best_impact_point = ray.getOrigin();
+	// init the best impact point to the ray position
+	Vec3 best_impact_point_child = ray.getOrigin();
 	// declare the best scene object;
 	SceneObject* best_sceneObject = nullptr;
+	// declare the best scene object;
+	SceneObject* best_sceneObject_child = nullptr;
 	// declare the best distance
 	float best_dist = numeric_limits<float>::infinity();
 	// declare the current distance
@@ -185,23 +189,35 @@ pair<Vec3, SceneObject*> Node::collide(Ray &ray){
 			}
 		}
 	}
-
-	// if we find an objet it's the best of the branch
-	if (best_sceneObject != nullptr){
-		return pair<Vec3, SceneObject*>(best_impact_point, best_sceneObject);
-	}
-
 	// check the collide with the children
 	pair<Vec3, SceneObject*> pair_collide;
 	for (vector<Node*>::iterator child = children->begin(); child != children->end(); child++){
 		if ((*child)->intersectRegion(ray)){
 			pair_collide = (*child)->collide(ray);
 			if (pair_collide.second != nullptr){
-				best_sceneObject = pair_collide.second;
-				best_impact_point = pair_collide.first;
+				best_sceneObject_child = pair_collide.second;
+				best_impact_point_child = pair_collide.first;
 				break;
 			}
 		}
+	}
+
+	// if we find an objet it's the best of the branch
+	if (best_sceneObject != nullptr){
+		if (best_sceneObject_child != nullptr){
+			impact_point = best_impact_point_child - ray.getOrigin();
+			dist = impact_point.length();
+			// if it's the best
+			if (best_dist > dist){
+				return pair<Vec3, SceneObject*>(best_impact_point_child, best_sceneObject_child);
+			}
+			else{
+				return pair<Vec3, SceneObject*>(best_impact_point, best_sceneObject);
+			}
+		}
+		else{
+			return pair<Vec3, SceneObject*>(best_impact_point, best_sceneObject);
+		}		
 	}
 
 	return pair<Vec3, SceneObject*>(best_impact_point, best_sceneObject);
