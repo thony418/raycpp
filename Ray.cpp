@@ -127,7 +127,7 @@ Color Ray::phong_shading(Scene & scene)
 				composition = amb * (0.80f / 3.0f) + dif * (0.80f / 3.0f) + spe * (0.80f / 3.0f) + reflection.phong_shading(scene) * 0.2f;
 			}
 		} else {
-			Ray refract = Ray(collision_point, this->direction.refract(norm, 1, mat.get_refractive_index()), this->ttl);
+			Ray refract = Ray(collision_point, this->direction.refract(norm, 1, mat.get_refractive_index()), this->ttl -1);
 			composition = spe + refract.phong_shading(scene);
 		}
 	// if no collision show scene background color
