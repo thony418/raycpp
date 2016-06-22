@@ -1,6 +1,7 @@
 #include "Ray.h"
 #include "SceneObject.h"
 #include "Scene.h"
+#include "Octree.h"
 #include "collision.h"
 #include <algorithm>
 
@@ -41,7 +42,7 @@ float lambertian(Vec3 &collision_point, Vec3 &normal, Vec3 &light_direction) {
 *		and its Material.
 *\return a new Color giving the RGB color componants each range between 0.0f and 1.0f
 */
-Color Ray::phong_diffuse(Vec3 &collision_point, Vec3 & norm, Material & mat, Scene & scene) {
+Color Ray::phong_diffuse(Vec3 &collision_point, Vec3 & norm, Material & mat, Scene & scene, Octree &octree) {
 	Color diffuse_color = Color();
 	Vec3 light_direction;
 	Light *curr_light;
@@ -49,7 +50,7 @@ Color Ray::phong_diffuse(Vec3 &collision_point, Vec3 & norm, Material & mat, Sce
 	for (int i = 0; i < (int)scene.getLights()->size(); i++) {
 		curr_light = scene.getLights()->at(i);
 		light_direction = Vec3(collision_point, curr_light->getPosition()).unit();
-		light_intersect = collide(Ray(collision_point, light_direction, 0), *(scene.getSceneObjects()));
+		light_intersect = octree.collide(Ray(collision_point, light_direction, 0));
 
 		if (light_intersect.second == nullptr || light_intersect.second->getMaterial().is_transparent()) {
 			diffuse_color = (diffuse_color * (float)i) + Color(mat.get_color() * mat.get_phong_diffuse() * curr_light->get_diffuse() *
@@ -69,7 +70,7 @@ Color Ray::phong_diffuse(Vec3 &collision_point, Vec3 & norm, Material & mat, Sce
 *		and its Material.
 *\return a new Color giving the RGB color componants each range between 0.0f and 1.0f
 */
-Color Ray::phong_specular(Vec3 &collision_point, Vec3 & norm, Material & mat, Scene & scene) {
+Color Ray::phong_specular(Vec3 &collision_point, Vec3 & norm, Material & mat, Scene & scene, Octree &octree) {
 	Color specular_color = Color();
 	Vec3 light_direction, reflected_light;
 	Light *curr_light;
@@ -78,7 +79,7 @@ Color Ray::phong_specular(Vec3 &collision_point, Vec3 & norm, Material & mat, Sc
 	for (int i = 0; i < (int)scene.getLights()->size(); i++) { // for each light in the scene, combine shadings for the current ray
 		curr_light = scene.getLights()->at(i);
 		light_direction = Vec3(collision_point, curr_light->getPosition()).unit();
-		light_intersect = collide(Ray(collision_point, light_direction, 0), *(scene.getSceneObjects()));
+		light_intersect = octree.collide(Ray(collision_point, light_direction, 0));
 		if (light_intersect.second == nullptr || Vec3(light_intersect.first, collision_point).length() > 0.05f || mat.is_transparent()) {
 			reflected_light = (-light_direction).reflect(norm);
 			specular_color = (specular_color * (float)i) + (Color(	curr_light->get_color() * mat.get_phong_specular() * curr_light->get_specular() *
@@ -98,12 +99,12 @@ Color Ray::phong_specular(Vec3 &collision_point, Vec3 & norm, Material & mat, Sc
 *\brief calculate the color of a ray pointing to a particular collision point, according to Phong's model shading.
 *\return the RGB color resulting of the Phong shading
 */
-Color Ray::phong_shading(Scene & scene)
+Color Ray::phong_shading(Scene & scene, Octree &octree)
 {
 	Color amb, dif, spe, composition;
 
 	// collision detection
-	pair<Vec3, SceneObject*> intersection = collide(*this, *(scene.getSceneObjects()));
+	pair<Vec3, SceneObject*> intersection = octree.collide(*this);
 
 	//if collision calculate shading
 	if (intersection.second != nullptr) {
@@ -112,12 +113,12 @@ Color Ray::phong_shading(Scene & scene)
 		Vec3 collision_point = intersection.first, 
 			 norm = intersection.second->computeBump(intersection.first);
 		
-		spe = phong_specular(collision_point, norm, mat, scene);
+		spe = phong_specular(collision_point, norm, mat, scene, octree);
 
 		if (!mat.is_transparent()) {
 			//calculate phong's components
 			amb = phong_ambiant(mat, scene);
-			dif = phong_diffuse(collision_point, norm, mat, scene);
+			dif = phong_diffuse(collision_point, norm, mat, scene, octree);
 
 			if (this->ttl <= 0) { //if end of life of ray return
 				composition = (amb / 3.0f) + (dif / 3.0f) + (spe / 3.0f);
@@ -127,14 +128,14 @@ Color Ray::phong_shading(Scene & scene)
 				composition =	amb * (0.80f / 3.0f) +
 								dif * (0.80f / 3.0f) + 
 								spe * (0.80f / 3.0f) + 
-								mat.get_phong_specular() * reflection.phong_shading(scene) * 0.2f;
+								mat.get_phong_specular() * reflection.phong_shading(scene, octree) * 0.2f;
 			}
 		} else { //if ray enconters transparent object
 			if (this->ttl <= 0) { 
 				composition = spe;
 			} else {
 				Ray refract = Ray(collision_point, this->direction.refract(norm, 1.0f, mat.get_refractive_index()), this->ttl-1);
-				composition = spe + refract.phong_shading(scene);
+				composition = spe + refract.phong_shading(scene, octree);
 			}
 		}
 	// if no collision show scene background color

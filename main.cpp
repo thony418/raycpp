@@ -18,7 +18,7 @@ void renderingLoop(RenderWindow* window, Camera* cam, Scene & scene) {
 	for (int x = 0; x < 1024; x++) {
 		for (int y = 0; y < 768; y++) {
 			Ray currRay(cam->getRay(x, y));
-			tmp_color = currRay.phong_shading(scene);
+			tmp_color = currRay.phong_shading(scene, octree);
 			int r = (int)(tmp_color.getX() * 255);
 			int g = (int)(tmp_color.getY() * 255);
 			int b = (int)(tmp_color.getZ() * 255);
@@ -37,7 +37,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	scene.getSceneObjects()->push_back(new Sphere(Vec3(-0.23f, -0.5f, 5.0f), 1.08f, Material(1.05f)));
 	//scene.getSceneObjects()->push_back(new Sphere(Vec3(-0.5f, -0.5f, 4.0f), 1.f, Material(0.2f, 1.0f, 1.0f, 100.0f, Color(0, 200, 250))));
 	scene.getSceneObjects()->push_back(new Sphere(Vec3(1.0f, 1.0f, 8.f), 1.0f, Material(0.2f, 1.0f, 1.0f, 1000.0f, Color(255, 0, 0))));
-	scene.getSceneObjects()->push_back(new Sphere(Vec3(-2.0f, .5f, 7.0f), 1.0f, Material(0.2f, 1.0f, 1.0f, 1000.0f, Color(0, 0, 0))));
+	scene.getSceneObjects()->push_back(new Sphere(Vec3(-2.0f, .5f, 7.0f), 1.0f, Material(0.2f, 1.0f, 1.0f, 1000.0f, Color(200, 50, 100))));
 	scene.getSceneObjects()->push_back(new Sphere(Vec3(-2.0f, -2.5f, 7.0f), 1.0f, Material(0.2f, 1.0f, 1.0f, 1000.0f, Color(0, 200, 200))));
 
 	//scene.getSceneObjects()->push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.0f), Vec3(0.0f, 0.1f, 0.0f),

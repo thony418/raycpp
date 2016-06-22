@@ -7,6 +7,7 @@
 
 class Scene;
 class SceneObject;
+class Octree;
 
 
 class Ray{
@@ -15,9 +16,9 @@ public:
 	inline Vec3 getOrigin(){ return origin; };
 	inline Vec3 getDirection(){ return direction; };
 	Color phong_ambiant(Material &mat, Scene & scene);
-	Color phong_diffuse(Vec3 &collision_point, Vec3 & norm, Material & mat, Scene & scene);
-	Color phong_specular(Vec3 &collision_point, Vec3 & norm, Material & mat, Scene & scene);
-	Color phong_shading(Scene & scene);
+	Color phong_diffuse(Vec3 &collision_point, Vec3 & norm, Material & mat, Scene & scene, Octree &octree);
+	Color phong_specular(Vec3 &collision_point, Vec3 & norm, Material & mat, Scene & scene, Octree &octree);
+	Color phong_shading(Scene & scene, Octree &octree);
 private:
 	Vec3 origin;
 	Vec3 direction;
