@@ -124,10 +124,13 @@ Color Ray::phong_shading(Scene & scene)
 			}
 			else { // else combine with reflexion
 				Ray reflection = Ray(collision_point, -this->direction.reflect(norm), this->ttl - 1);
-				composition = amb * (0.80f / 3.0f) + dif * (0.80f / 3.0f) + spe * (0.80f / 3.0f) + reflection.phong_shading(scene) * 0.2f;
+				composition =	amb * (0.80f / 3.0f) +
+								dif * (0.80f / 3.0f) + 
+								spe * (0.80f / 3.0f) + 
+								mat.get_phong_specular() * reflection.phong_shading(scene) * 0.2f;
 			}
-		} else {
-			if (this->ttl <= 0) {
+		} else { //if ray enconters transparent object
+			if (this->ttl <= 0) { 
 				composition = spe;
 			} else {
 				Ray refract = Ray(collision_point, this->direction.refract(norm, 1.0f, mat.get_refractive_index()), this->ttl-1);
