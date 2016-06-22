@@ -31,6 +31,7 @@ public:
 	Vec3 unit() const;
 
 	Vec3 reflect(Vec3 &norm);
+	Vec3 refract(Vec3 &norm, float index_incom, float index_outgo);
 
 	inline float getX() const { return x; };
 	inline float getY() const { return y; };
