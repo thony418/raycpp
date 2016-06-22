@@ -1,3 +1,9 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \class SceneObject.h
+* \brief virtual class of scene object
+*/
 #pragma once
 #include "Material.h"
 #include "Ray.h"

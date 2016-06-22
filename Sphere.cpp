@@ -1,3 +1,9 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \class Sphere.cpp
+* \brief Sphere object
+*/
 #include "Sphere.h"
 
 pair<bool, Vec3> Sphere::intersect(Ray &ray){

@@ -1,3 +1,9 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \class Octree.h
+* \brief Octree representation of the scene and Octree collision
+*/
 #pragma once
 #include <vector>
 #include "SceneObject.h"

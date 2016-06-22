@@ -1,3 +1,9 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \class Box.cpp
+* \brief Box object  
+*/
 #include "Box.h"
 #include <algorithm> 
 

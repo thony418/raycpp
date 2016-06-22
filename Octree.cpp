@@ -2,7 +2,7 @@
 * \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO 
 * \project Ray-Tracing
 * \class Octree.cpp
-* \brief 
+* \brief Octree representation of the scene and Octree collision
 */
 
 #include "Octree.h"

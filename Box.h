@@ -1,3 +1,9 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \class Box.h
+* \brief Box object
+*/
 #pragma once
 #include "SceneObject.h"
 

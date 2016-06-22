@@ -1,3 +1,9 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \class collision.cpp
+* \brief Algorithm naif of collision
+*/
 #include "collision.h"
 #include <limits>
 
