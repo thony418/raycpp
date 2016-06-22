@@ -1,3 +1,10 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO 
+* \project Ray-Tracing
+* \class Octree.cpp
+* \brief 
+*/
+
 #include "Octree.h"
 #include <algorithm>
 
