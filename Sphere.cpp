@@ -53,6 +53,7 @@ pair<bool, Vec3> Sphere::intersect(Ray &ray){
 /*
 	Used to compute the normal on the impact point to make the surface "bump"
 	Impact point given in the scene base
+	What it should do :
 	If the impacted sphere has a bump map, will get the color value of this point on the map
 	Then, will compute and return the normal depending on the color found
 	Else, will return the normal of the sphere

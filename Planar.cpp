@@ -113,15 +113,16 @@ Vec3 Planar::computeBump(const Vec3& impact) const {
 
 		// Finally, we get the color at the pixel using the previous coordinates
 		Color c = Color();
-		if (x*y > mapWidth*mapHeight) {
-			c = this->material.get_pixel_at(x + mapWidth*y - 1);
+		if (x >= mapWidth) {
+			c = this->material.get_pixel_at((mapWidth-1) + mapWidth*y);
+		}else if(y >= mapHeight){
+			c = this->material.get_pixel_at(x + mapWidth*(mapHeight-1));
 		}else{
 			c = this->material.get_pixel_at(x + mapWidth*y);
 		}
-
-		res.setX(1 * c.getX());
-		res.setY(1 * c.getY());
-		res.setZ(1 * c.getZ());
+		res.setX(res.getX() * c.getX());
+		res.setY(res.getY() * c.getY());
+		res.setZ(res.getZ() * c.getZ());
 	}
 	
 	return res;

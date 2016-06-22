@@ -38,12 +38,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	scene.getSceneObjects()->push_back(new Sphere(Vec3(-2.0f, 1.5f, 7.0f), 1.0f, Material(0.2f, 1.0f, 1.0f, 1000.0f, Color(200, 50, 100))));
 	scene.getSceneObjects()->push_back(new Sphere(Vec3(-2.0f, -1.5f, 7.0f), 1.0f, Material(0.2f, 1.0f, 1.0f, 1000.0f, Color(0, 200, 200))));
 
-	scene.getSceneObjects()->push_back(new Planar(Vec3(2.0f, 1.0f, 10.0f), Vec3(5.0f, 0.0f, -2.0f), Vec3(0.0f, 5.0f, 0.0f),
-													Material(1.0f, 1.0f, 1.0f, 1.0f, Color(150, 50, 20), "Maps/brickwall_bump.ppm")));
-	//scene.getSceneObjects()->push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.0f), Vec3(0.0f, 0.1f, 0.0f),
-	//												Material(1.0f, 1.0f, 1.0f, 1.0f, Color(0, 0, 255), "Maps/brickwall_bump.ppm")));
-	//scene.getSceneObjects()->push_back(new Planar(Vec3(0.0f, 0.0f, 0.0f), Vec3(5.0f, 1.0f, 5.0f), Vec3(-5.0f, -1.0f, 5.0f),
-	//												Material(1.0f, 1.0f, 1.0f, 1.0f, Color(150, 50, 50), "Maps/metal_bump.ppm")));
+	Material mWall = Material(1.0f, 1.0f, 1.0f, 1.0f, Color(120, 40, 10), "Maps/wall_HD_1_bump.ppm");
+	scene.getSceneObjects()->push_back(new Planar(Vec3(2.0f, 1.0f, 10.0f), Vec3(5.0f, 0.0f, -3.0f), Vec3(0.0f, 5.0f, 0.0f), mWall));
+	scene.getSceneObjects()->push_back(new Planar(Vec3(-6.0f, 1.0f, 10.0f), Vec3(5.0f, 0.0f, 3.0f), Vec3(0.0f, 5.0f, 0.0f), mWall));
 	
 	thread renderThread(renderingLoop, &mainWindow, &cam, scene);
 
