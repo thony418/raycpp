@@ -3,7 +3,7 @@
 #include "Material.h"
 #include "Light.h"
 #include "Color.h"
-#define RAY_TTL 2
+#define RAY_TTL 1
 
 class Scene;
 class SceneObject;

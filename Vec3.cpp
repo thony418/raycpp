@@ -39,12 +39,12 @@ float Vec3::length() const { return sqrtf(x*x + y*y + z*z); }
 Vec3 Vec3::unit() const { float len = this->length(); return Vec3(x / len, y / len, z / len); }
 
 Vec3 Vec3::reflect(Vec3 &norm){
-	return (((2 * (*this * norm)) * norm) - *this ).unit();
+	return (((2.f * (*this * norm)) * norm) - *this ).unit();
 }
 
 Vec3 Vec3::refract(Vec3 & norm, float index_incom, float index_outgo){
 	float ratio = index_incom / index_outgo;
 	Vec3 outgoing;
-	outgoing = ratio * (norm ^ (-norm ^ *this)) - norm * sqrt(1 - ratio * ratio * (norm ^ *this) * (norm ^ *this));
+	outgoing = ratio * (norm ^ (-norm ^ *this)) - norm * sqrtf(1.f - ratio * ratio * (norm ^ *this) * (norm ^ *this));
 	return outgoing;
 }

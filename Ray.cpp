@@ -51,7 +51,7 @@ Color Ray::phong_diffuse(Vec3 &collision_point, Vec3 & norm, Material & mat, Sce
 		light_direction = Vec3(collision_point, curr_light->getPosition()).unit();
 		light_intersect = collide(Ray(collision_point, light_direction, 0), *(scene.getSceneObjects()));
 
-		if (light_intersect.second == nullptr) {
+		if (light_intersect.second == nullptr || light_intersect.second->getMaterial().is_transparent()) {
 			diffuse_color = (diffuse_color * (float)i) + Color(mat.get_color() * mat.get_phong_diffuse() * curr_light->get_diffuse() *
 																lambertian(collision_point, norm, light_direction)
 																);
@@ -79,7 +79,7 @@ Color Ray::phong_specular(Vec3 &collision_point, Vec3 & norm, Material & mat, Sc
 		curr_light = scene.getLights()->at(i);
 		light_direction = Vec3(collision_point, curr_light->getPosition()).unit();
 		light_intersect = collide(Ray(collision_point, light_direction, 0), *(scene.getSceneObjects()));
-		if (light_intersect.second == nullptr || Vec3(light_intersect.first, collision_point).length() > 0.05f) {
+		if (light_intersect.second == nullptr || Vec3(light_intersect.first, collision_point).length() > 0.05f || mat.is_transparent()) {
 			reflected_light = (-light_direction).reflect(norm);
 			specular_color = (specular_color * (float)i) + (Color(	curr_light->get_color() * mat.get_phong_specular() * curr_light->get_specular() *
 																	pow(max(reflected_light * this->direction, 0.0f),
@@ -127,8 +127,12 @@ Color Ray::phong_shading(Scene & scene)
 				composition = amb * (0.80f / 3.0f) + dif * (0.80f / 3.0f) + spe * (0.80f / 3.0f) + reflection.phong_shading(scene) * 0.2f;
 			}
 		} else {
-			Ray refract = Ray(collision_point, this->direction.refract(norm, 1, mat.get_refractive_index()), this->ttl -1);
-			composition = spe + refract.phong_shading(scene);
+			if (this->ttl <= 0) {
+				composition = spe;
+			} else {
+				Ray refract = Ray(collision_point, this->direction.refract(norm, 1.0f, mat.get_refractive_index()), this->ttl-1);
+				composition = spe + refract.phong_shading(scene);
+			}
 		}
 	// if no collision show scene background color
 	} else {

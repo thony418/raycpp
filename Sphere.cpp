@@ -11,7 +11,7 @@ pair<bool, Vec3> Sphere::intersect(Ray &ray){
 	float squard_radius = radius * radius;
 
 	// if the square dist is less than the square radius of the sphere : consider as no intersection existing 
-	if (squard_dist <= squard_radius){
+	if ((int) squard_dist <= (int) squard_radius){
 		// ray origin is on the sphere
 		return pair<bool, Vec3>(false, impact_point);
 	}

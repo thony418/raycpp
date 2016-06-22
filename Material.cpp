@@ -4,6 +4,7 @@ Material::Material():
 	phong_ambiant_factor(.2f),
 	phong_diffuse_factor (1.0f),
 	phong_specular_factor (1.0f),
+	phong_specular_alpha(100.0f),
 	color(Vec3()),
 	bump_map (Image()),
 	refractive_index ( 0.0f){}

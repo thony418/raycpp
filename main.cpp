@@ -31,13 +31,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLin
 	RenderWindow mainWindow(hInstance, nCmdShow);
 	Camera cam( Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 1.0f), 1024, 768);
 	Scene scene = Scene();
-	//scene.getLights()->push_back(new Light(Vec3(-10.0f, 10.0f, 0.0f), 1.0f, 1.0f, 1.0f));
-	scene.getLights()->push_back(new Light(Vec3(10.0f, 10.0f, 0.0f), 1.0f, 1.0f, 1.0f));
-	//sscene.getLights()->push_back(new Light(Vec3(0.0f, 10.0f, 10.0f), 1.0f, 1.0f, 1.0f));
-	scene.getSceneObjects()->push_back(new Sphere(Vec3(0.0f, 0.0f, 5.0f), 1.0f, Material(1.05f)));
-	//scene.getSceneObjects()->push_back(new Sphere(Vec3(0.0f, 0.0f, 5.0f), 1.0f, Material(0.2f, 1.0f, 2.0f, 1500.0f, Color(255, 0, 0))));
-	scene.getSceneObjects()->push_back(new Sphere(Vec3(1.0f, 1.0f, 7.0f), 2.0f, Material(0.2f, 1.0f, 1.0f, 1000.0f, Color(0, 200, 250))));
-	
+	scene.getLights()->push_back(new Light(Vec3(-10.0f, 0.0f, 0.0f), 1.0f, 1.0f, 1.0f));
+	//scene.getLights()->push_back(new Light(Vec3(10.0f, 10.0f, 0.0f), 1.0f, 1.0f, 1.0f));
+	//scene.getLights()->push_back(new Light(Vec3(0.0f, 10.0f, 10.0f), 1.0f, 1.0f, 1.0f));
+	scene.getSceneObjects()->push_back(new Sphere(Vec3(-0.5f, -0.5f, 4.0f), 1.0f, Material(1.02f)));
+	//scene.getSceneObjects()->push_back(new Sphere(Vec3(-0.5f, -0.5f, 4.0f), 1.f, Material(0.2f, 1.0f, 1.0f, 100.0f, Color(0, 200, 250))));
+	scene.getSceneObjects()->push_back(new Sphere(Vec3(1.0f, 1.0f, 7.0f), 2.0f, Material(0.2f, 1.0f, 1.0f, 1000.0f, Color(255, 0, 0))));
+	scene.getSceneObjects()->push_back(new Sphere(Vec3(-2.0f, .5f, 7.0f), 1.0f, Material(0.2f, 1.0f, 1.0f, 1000.0f, Color(0, 0, 0))));
+	scene.getSceneObjects()->push_back(new Sphere(Vec3(-2.0f, -2.5f, 7.0f), 1.0f, Material(0.2f, 1.0f, 1.0f, 1000.0f, Color(0, 200, 200))));
+
 	//scene.getSceneObjects()->push_back(new Planar(Vec3(0.1f, 0.0f, 1.0f), Vec3(0.1f, 0.0f, 0.0f), Vec3(0.0f, 0.1f, 0.0f),
 	//												Material(1.0f, 1.0f, 1.0f, 1.0f, Color(0, 0, 255), "Maps/brickwall_bump.ppm")));
 	//scene.getSceneObjects()->push_back(new Planar(Vec3(0.1f, 0.0f, 10.0f), Vec3(2.1f, 0.0f, 2.0f), Vec3(0.0f, 2.1f, 0.0f),
