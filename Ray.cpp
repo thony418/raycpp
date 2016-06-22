@@ -50,7 +50,8 @@ Color Ray::phong_diffuse(Vec3 &collision_point, Vec3 & norm, Material & mat, Sce
 	for (int i = 0; i < (int)scene.getLights()->size(); i++) {
 		curr_light = scene.getLights()->at(i);
 		light_direction = Vec3(collision_point, curr_light->getPosition()).unit();
-		light_intersect = octree.collide(Ray(collision_point, light_direction, 0));
+		//light_intersect = octree.collide(Ray(collision_point, light_direction, 0));
+		light_intersect = collide(Ray(collision_point, light_direction, 0), (*scene.getSceneObjects()));
 
 		if (light_intersect.second == nullptr || light_intersect.second->getMaterial().is_transparent()) {
 			diffuse_color = (diffuse_color * (float)i) + Color(mat.get_color() * mat.get_phong_diffuse() * curr_light->get_diffuse() *
@@ -79,7 +80,8 @@ Color Ray::phong_specular(Vec3 &collision_point, Vec3 & norm, Material & mat, Sc
 	for (int i = 0; i < (int)scene.getLights()->size(); i++) { // for each light in the scene, combine shadings for the current ray
 		curr_light = scene.getLights()->at(i);
 		light_direction = Vec3(collision_point, curr_light->getPosition()).unit();
-		light_intersect = octree.collide(Ray(collision_point, light_direction, 0));
+		//light_intersect = octree.collide(Ray(collision_point, light_direction, 0));
+		light_intersect = collide(Ray(collision_point, light_direction, 0), (*scene.getSceneObjects()));
 		if (light_intersect.second == nullptr || Vec3(light_intersect.first, collision_point).length() > 0.05f || mat.is_transparent()) {
 			reflected_light = (-light_direction).reflect(norm);
 			specular_color = (specular_color * (float)i) + (Color(	curr_light->get_color() * mat.get_phong_specular() * curr_light->get_specular() *
@@ -104,7 +106,8 @@ Color Ray::phong_shading(Scene & scene, Octree &octree)
 	Color amb, dif, spe, composition;
 
 	// collision detection
-	pair<Vec3, SceneObject*> intersection = octree.collide(*this);
+	//pair<Vec3, SceneObject*> intersection = octree.collide(*this);
+	pair<Vec3, SceneObject*> intersection = collide(*this, (*scene.getSceneObjects()));
 
 	//if collision calculate shading
 	if (intersection.second != nullptr) {
