@@ -78,7 +78,7 @@ Vec3 Planar::maxCoordinates() {
 	Impact point given in the scene base
 	If the impacted planar has a bump map, will get the color value of this point on the map
 	Then, will compute and return the normal depending on the color found
-	Else, will return the normal of the planar (normalized)
+	Else, will return the normal of the planar
 */
 Vec3 Planar::computeBump(const Vec3& impact) const {
 	Vec3 res = Vec3() - this->n;
@@ -87,20 +87,37 @@ Vec3 Planar::computeBump(const Vec3& impact) const {
 		Vec3 impactPositionOnObject = impact - this->position;
 		unsigned int mapWidth = this->material.get_bump_map_width();
 		unsigned int mapHeight = this->material.get_bump_map_height();
+		unsigned int halfMapWidth = mapWidth / 2;
+		unsigned int halfMapHeight = mapHeight / 2;
+		unsigned int x, y;
 
-		float xNorm = impactPositionOnObject*this->halfWidth;
-		float yNorm = impactPositionOnObject*this->halfHeight;
+		// We get the x and y that have been projected on the width and the height of the planar
+		float xNorm = impactPositionOnObject * this->halfWidth / this->halfWidth.length();
+		float yNorm = impactPositionOnObject * this->halfHeight / this->halfWidth.length();
 
-		float dx = xNorm / this->halfWidth.length();
-		float dy = yNorm / this->halfHeight.length();
+		// We get the coef to make the map at the scale of the object
+		float coefWidth = halfMapWidth / this->halfWidth.length();
+		float coefHeight = halfMapHeight / this->halfHeight.length();
 
-		float dxPx = dx * (mapWidth / 2);
-		float dyPx = dy * (mapHeight / 2);
+		// We compute the delta x and y (in pixels)
+		float dx = xNorm * coefWidth;
+		float dy = yNorm * coefHeight;
 
-		int x = (int) (dxPx + (mapWidth / 2));
-		int y = (int)(dyPx + (mapHeight / 2));
+		// We compute the x and y coordinates in float
+		float xf = dx + halfMapWidth;
+		float yf = dy + halfMapHeight;
 
-		Color c = this->material.get_pixel_at(x + mapWidth*y);
+		// We convert from float to int
+		x = (unsigned int) xf;
+		y = (unsigned int) yf;
+
+		// Finally, we get the color at the pixel using the previous coordinates
+		Color c = Color();
+		if (x*y > mapWidth*mapHeight) {
+			c = this->material.get_pixel_at(x + mapWidth*y - 1);
+		}else{
+			c = this->material.get_pixel_at(x + mapWidth*y);
+		}
 
 		res.setX(1 * c.getX());
 		res.setY(1 * c.getY());
