@@ -1,3 +1,10 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file Vec3.cpp
+* \brief Represent a vector a 3 float, either a true vector, a position or a color.
+*/
+
 #include "Vec3.h"
 #include <cmath>
 

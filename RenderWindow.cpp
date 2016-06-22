@@ -1,3 +1,10 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file RenderWindow.cpp
+* \brief Window in which the picture is rendered
+*/
+
 #include "RenderWindow.h"
 
 RenderWindow *winInstance = NULL;

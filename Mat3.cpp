@@ -1,3 +1,9 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file Mat3.cpp
+* \brief 3 by 3 matrix of floats
+*/
 #include "Mat3.h"
 
 Mat3::Mat3(const float(&data)[3][3]) {

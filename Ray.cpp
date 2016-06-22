@@ -1,3 +1,10 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file Ray.cpp
+* \brief represent a ray casted from some position
+*/
+
 #include "Ray.h"
 #include "SceneObject.h"
 #include "Scene.h"

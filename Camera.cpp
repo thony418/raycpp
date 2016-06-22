@@ -1,5 +1,15 @@
-#include "Camera.h"
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file Camera.cpp
+* \brief Camera representation in the scene 
+*/
 
+#include "Camera.h"
+/*
+ * On construit une caméra à partir d'une position et d'un vecteur permettant de positionner la frame
+ * par rapport à l'observateur. On génère une matrice de rotation à partir de ces informations.
+ */
 Camera::Camera(const Vec3& pOrigin, const Vec3& vFrame, const unsigned int picWidth, const unsigned int picHeight) : pOrigin(pOrigin), picWidth(picWidth), picHeight(picHeight) {
 	Vec3 i(1.0f, 0.0f, 0.0f);
 	Vec3 k = (i ^ vFrame).unit();
@@ -20,6 +30,9 @@ Camera::Camera(const Vec3& pOrigin, const Vec3& vFrame, const unsigned int picWi
 	}
 }
 
+/*
+* Retourne le rayon correspondant à un pixel donné suivant les caractéristiques de la camera.
+*/
 Ray Camera::getRay(const unsigned int x, const unsigned int y) const {
 	float dy = (float)(picHeight - y);
 	dy /= (float)picHeight;

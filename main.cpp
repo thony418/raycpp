@@ -1,3 +1,10 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file main.h
+* \brief main function and rendering loop.
+*/
+
 #include <Windows.h>
 #include "RenderWindow.h"
 #include "Camera.h"
@@ -11,6 +18,10 @@
 #include <omp.h>
 #include "Box.h"
 
+/*
+ * Main rendering loop. It renders a scene on a window according to a
+ * specified camera.
+ */
 void renderingLoop(RenderWindow* window, Camera* cam, Scene & scene) {
 	Color tmp_color;
 	Octree octree = Octree(scene.getSceneObjects());
@@ -27,6 +38,10 @@ void renderingLoop(RenderWindow* window, Camera* cam, Scene & scene) {
 	}
 }
 
+/*
+ * main functions. It starts a window, construct a scene and start the rendering. It also manage
+ * the main message loop.
+ */
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmdLine, int nCmdShow) {
 	RenderWindow mainWindow(hInstance, nCmdShow);
 	Camera cam( Vec3(0.0f, 0.0f, 0.0f), Vec3(0.0f, 0.0f, 1.0f), 1024, 768);

@@ -1,3 +1,10 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file Camera.h
+* \brief Camera representation in the scene
+*/
+
 #pragma once
 #include "Vec3.h"
 #include "Mat3.h"

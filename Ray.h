@@ -1,3 +1,10 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file Ray.h
+* \brief represent a ray casted from some position
+*/
+
 #pragma once
 #include "Vec3.h"
 #include "Material.h"
@@ -20,7 +27,7 @@ public:
 	Color phong_specular(Vec3 &collision_point, Vec3 & norm, Material & mat, Scene & scene, Octree &octree);
 	Color phong_shading(Scene & scene, Octree &octree);
 private:
-	Vec3 origin;
-	Vec3 direction;
+	Vec3 origin; // Position from where the ray is casted
+	Vec3 direction; // Vector orienting the ray cast
 	int ttl;///< time to live of the ray (number of reflections possible for this Ray) 
 };
