@@ -1,3 +1,9 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file Image.cpp
+* \brief Method to read a Image object from a file and store the data
+*/
 #include "Image.h"
 #include <fstream>
 #include <string>

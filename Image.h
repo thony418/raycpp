@@ -1,5 +1,8 @@
-/*
-	Class used to manipulate an image (like the bump map)
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file Image.h
+* \brief Represents an object to store and manipulate images (used for the bump map)
 */
 #pragma once
 #include "Color.h"

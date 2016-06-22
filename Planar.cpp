@@ -1,3 +1,9 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file Planar.cpp
+* \brief Constructors, intersect method and bump computing for the Planar class
+*/
 #include "Planar.h"
 #include "Color.h"
 

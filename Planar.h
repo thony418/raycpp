@@ -1,3 +1,9 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file Planar.h
+* \brief Represents a planar object, with a position and two Vec3 (instance of SceneObject)
+*/
 #pragma once
 #include "SceneObject.h"
 
