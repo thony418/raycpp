@@ -6,7 +6,7 @@
 class Material{
 public:
 	Material();
-	Material(float refractive_index);
+	Material(float ref_index);
 	Material(float amb, float diff, float spec, float alpha, Color color);
 	Material(float amb, float diff, float spec, float alpha, Color color, float refr);
 	Material(float amb, float diff, float spec, float alpha, Color color, const char* file);
