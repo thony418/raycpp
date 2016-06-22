@@ -1,3 +1,10 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file color.cpp
+* \brief represent a RGB color without alpha
+*/
+
 #include "Color.h"
 #include <algorithm>
 

@@ -1,3 +1,10 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file material.h
+* \brief represent a material associated with a sceneObject
+*/
+
 #pragma once
 #include "Vec3.h"
 #include "Color.h"
@@ -25,8 +32,8 @@ public:
 	inline unsigned int get_bump_map_height() const { return bump_map.getHeight(); }
 
 private:
-	float phong_ambiant_factor, phong_diffuse_factor, phong_specular_factor, phong_specular_alpha ;
-	Color color;
-	Image bump_map;
-	float refractive_index;
+	float phong_ambiant_factor, phong_diffuse_factor, phong_specular_factor, phong_specular_alpha ;///< phong model factors
+	Color color; ///< material color
+	Image bump_map;///< virtual texture map
+	float refractive_index; ///< for transparent materials 
 };

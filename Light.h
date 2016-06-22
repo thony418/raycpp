@@ -1,3 +1,10 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file light.h
+* \brief represent a light source
+*/
+
 #pragma once
 #include "Vec3.h"
 #include "Color.h"

@@ -1,4 +1,12 @@
+/**
+* \author Marie DARRIGOL & Anthony LEONARD & Ophélie PELLOUX-PRAYER & Olivier SOLDANO
+* \project Ray-Tracing
+* \file material.cpp
+* \brief represent a material associated with a sceneObject
+*/
+
 #include "Material.h"
+
 
 Material::Material():
 	phong_ambiant_factor(.2f),
